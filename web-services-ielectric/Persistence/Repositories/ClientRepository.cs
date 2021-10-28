@@ -11,9 +11,7 @@ namespace web_services_ielectric.Persistence.Repositories
 {
     public class ClientRepository : BaseRepository, IClientRepository
     {
-        public ClientRepository(AppDbContext context) : base(context)
-        {
-        }
+        public ClientRepository(AppDbContext context) : base(context) { }
 
         public async Task AddAsync(Client client)
         {

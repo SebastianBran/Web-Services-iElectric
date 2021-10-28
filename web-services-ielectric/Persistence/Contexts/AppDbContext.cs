@@ -15,6 +15,7 @@ namespace web_services_ielectric.Persistence.Contexts
         }
 
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Technician> Technicians { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -46,6 +47,13 @@ namespace web_services_ielectric.Persistence.Contexts
             );*/
 
             // END CLIENT //
+
+            // START TECHNICIAN //
+
+            //Constraints
+            builder.Entity<Technician>().ToTable("Technicians");
+
+            // END TECHNICIAN //
 
             // Apply Snake Case Naming Convention to All Objects
             builder.UseSnakeCaseNamingConvention();
