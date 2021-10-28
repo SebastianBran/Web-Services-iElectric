@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,12 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+//using Pomelo.EntityFrameworkCore.MySql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using web_services_ielectric.Persistence.Contexts;
+using web_services_ielectric.Domain.Repositories;
+using web_services_ielectric.Persistence.Repositories;
+using web_services_ielectric.Domain.Services;
+using web_services_ielectric.Services;
 
 namespace web_services_ielectric
 {
@@ -26,8 +32,32 @@ namespace web_services_ielectric
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Add CORS
+            services.AddCors();
 
             services.AddControllers();
+
+            //Database
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 26)));
+            });
+
+            //Repositories
+            services.AddScoped<IClientRepository, ClientRepository>();
+
+            //Unit of work
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //Services
+            services.AddScoped<IClientService, ClientService>();
+
+            //Endpoint Naming Conventions
+            services.AddRouting(options => options.LowercaseUrls = true);
+
+            //AutoMapper Setup
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "web_services_ielectric", Version = "v1" });
@@ -47,6 +77,12 @@ namespace web_services_ielectric
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // CORS Configuration
+            app.UseCors(x => x.SetIsOriginAllowed(origin => true)
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             app.UseAuthorization();
 
