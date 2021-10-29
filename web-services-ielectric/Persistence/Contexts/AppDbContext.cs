@@ -53,6 +53,10 @@ namespace web_services_ielectric.Persistence.Contexts
             //Constraints
             builder.Entity<Technician>().ToTable("Technicians");
 
+            builder.Entity<Technician>().HasData(
+                new Technician { Id = 1, Names = "Estefano Sebastian", LastNames = "Bran Zapata", Address = "Los Angeles", CellphoneNumber = 987899219, Email = "sebas@gmail.com", Password = "Sebas123" }
+            );
+
             // END TECHNICIAN //
 
             // Apply Snake Case Naming Convention to All Objects

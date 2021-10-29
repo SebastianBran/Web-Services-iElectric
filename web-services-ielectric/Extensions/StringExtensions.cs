@@ -31,10 +31,6 @@ namespace web_services_ielectric.Extensions
             }
 
             return new string(Convert(text.GetEnumerator()).ToArray());
-            /*return string.Concat(
-                text.Select((x, i) => i > 0 &&
-                char.IsUpper(x) ? "_" + x.ToString() :
-                x.ToString())).ToLower();*/
         }
     }
 }

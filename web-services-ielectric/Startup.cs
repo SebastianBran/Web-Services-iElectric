@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-//using Pomelo.EntityFrameworkCore.MySql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,12 +44,14 @@ namespace web_services_ielectric
 
             //Repositories
             services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<ITechnicianRepository, TechnicianRepository>();
 
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //Services
             services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<ITechnicianService, TechnicianService>();
 
             //Endpoint Naming Conventions
             services.AddRouting(options => options.LowercaseUrls = true);

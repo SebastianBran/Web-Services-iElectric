@@ -52,7 +52,6 @@ namespace web_services_ielectric.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
 
             var client = _mapper.Map<SaveClientResource, Client>(resource);
-
             var result = await _clientService.SaveAsync(client);
 
             if (!result.Success)
