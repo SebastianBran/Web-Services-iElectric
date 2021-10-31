@@ -16,6 +16,7 @@ namespace web_services_ielectric.Persistence.Contexts
 
         public DbSet<Client> Clients { get; set; }
         public DbSet<Technician> Technicians { get; set; }
+        public DbSet<Appliance> Appliances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -58,6 +59,22 @@ namespace web_services_ielectric.Persistence.Contexts
             );
 
             // END TECHNICIAN //
+            
+            // START APPLIANCE //
+            
+            //Constraints
+            builder.Entity<Appliance>().ToTable("Appliances");
+            builder.Entity<Appliance>().HasKey(a => a.Id);
+            builder.Entity<Appliance>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Appliance>().Property(a => a.ClientId).IsRequired();
+            builder.Entity<Appliance>().Property(a => a.ApplianceModelId).IsRequired();
+            builder.Entity<Appliance>().Property(a => a.PurchaseDate).IsRequired();
+
+            builder.Entity<Appliance>().HasData(
+                new Appliance {Id=1,ClientId = 1,ApplianceModelId = 1,PurchaseDate = 2019}
+            );
+            
+            // END APPLIANCE //
 
             // Apply Snake Case Naming Convention to All Objects
             builder.UseSnakeCaseNamingConvention();
