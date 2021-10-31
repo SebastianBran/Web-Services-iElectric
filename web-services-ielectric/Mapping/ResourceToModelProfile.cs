@@ -15,6 +15,9 @@ namespace web_services_ielectric.Mapping
             CreateMap<SavePersonResource, Person>();
             CreateMap<SaveClientResource, Client>();
             CreateMap<SaveTechnicianResource, Technician>();
+            CreateMap<SaveAnnouncementResource, Announcement>()
+                .ForMember(target => target.TypeOfAnnouncement,
+                            opt => opt.MapFrom(source => (ETypeOfAnnouncement)source.TypeOfAnnouncement));
         }
     }
 }
