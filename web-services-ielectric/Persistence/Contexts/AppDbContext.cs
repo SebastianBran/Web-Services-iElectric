@@ -17,6 +17,7 @@ namespace web_services_ielectric.Persistence.Contexts
         public DbSet<Client> Clients { get; set; }
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<Appliance> Appliances { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -75,6 +76,21 @@ namespace web_services_ielectric.Persistence.Contexts
             );
             
             // END APPLIANCE //
+
+            // START ANNOUNCEMENT //
+
+            builder.Entity<Announcement>().ToTable("Announcements");
+            builder.Entity<Announcement>().HasKey(p => p.Id);
+            builder.Entity<Announcement>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Announcement>().Property(p => p.Title).IsRequired().HasMaxLength(30);
+            builder.Entity<Announcement>().Property(p => p.Description).IsRequired();
+            builder.Entity<Announcement>().Property(p => p.Content).IsRequired();
+            builder.Entity<Announcement>().Property(p => p.UrlToImage).IsRequired();
+            builder.Entity<Announcement>().Property(p => p.TypeOfAnnouncement).IsRequired();
+            builder.Entity<Announcement>().Property(p => p.Visible).IsRequired();
+
+            // END ANNOUNCEMENT //
+
 
             // Apply Snake Case Naming Convention to All Objects
             builder.UseSnakeCaseNamingConvention();
