@@ -16,7 +16,7 @@ namespace web_services_ielectric.Persistence.Contexts
 
         public DbSet<Client> Clients { get; set; }
         public DbSet<Technician> Technicians { get; set; }
-        public DbSet<Appliance> Appliances { get; set; }
+        public DbSet<ApplianceModel> ApplianceModels { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -64,15 +64,18 @@ namespace web_services_ielectric.Persistence.Contexts
             // START APPLIANCE //
             
             //Constraints
-            builder.Entity<Appliance>().ToTable("Appliances");
-            builder.Entity<Appliance>().HasKey(a => a.Id);
-            builder.Entity<Appliance>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Appliance>().Property(a => a.ClientId).IsRequired();
-            builder.Entity<Appliance>().Property(a => a.ApplianceModelId).IsRequired();
-            builder.Entity<Appliance>().Property(a => a.PurchaseDate).IsRequired();
+            builder.Entity<ApplianceModel>().ToTable("Appliances");
+            builder.Entity<ApplianceModel>().HasKey(a => a.Id);
+            builder.Entity<ApplianceModel>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<ApplianceModel>().Property(a => a.Name).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.Model).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.ImgPath).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.PurchaseDate).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.ApplianceBrandId).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.ClientId).IsRequired();
 
-            builder.Entity<Appliance>().HasData(
-                new Appliance {Id=1,ClientId = 1,ApplianceModelId = 1,PurchaseDate = 2019}
+            builder.Entity<ApplianceModel>().HasData(
+                new ApplianceModel {Id=1,Name = "",Model = "",ImgPath = "",PurchaseDate = "",ApplianceBrandId = 1,ClientId = 1}
             );
             
             // END APPLIANCE //

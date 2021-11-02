@@ -45,7 +45,7 @@ namespace web_services_ielectric
             //Repositories
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
-            services.AddScoped<IApplianceRepository, ApplianceRepository>();
+            services.AddScoped<IApplianceModelRepository, ApplianceModelRepository>();
             services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
 
             //Unit of work
@@ -54,7 +54,7 @@ namespace web_services_ielectric
             //Services
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ITechnicianService, TechnicianService>();
-            services.AddScoped<IApplianceService, ApplianceService>();
+            services.AddScoped<IApplianceModelService, ApplianceModelService>();
             services.AddScoped<IAnnouncementService, AnnouncementService>();
 
             //Endpoint Naming Conventions
