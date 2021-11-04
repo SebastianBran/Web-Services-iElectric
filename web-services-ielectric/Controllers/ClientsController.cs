@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using web_services_ielectric.Resources;
 namespace web_services_ielectric.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("/api/v1/[controller]")]
     public class ClientsController : ControllerBase
     {
@@ -24,7 +26,15 @@ namespace web_services_ielectric.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+        Summary = "Get all Clients",
+        Description = "Get of all Clients",
+        OperationId = "GetAllClients")]
+        [SwaggerResponse(200, "All Clients returned", typeof(IEnumerable<ClientResource>))]
+
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<ClientResource>), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IEnumerable<ClientResource>> GetAllAsync()
         {
             var clients = await _clientService.ListAsync();
@@ -32,7 +42,15 @@ namespace web_services_ielectric.Controllers
             return resources;
         }
 
+        [SwaggerOperation(
+        Summary = "Get Client by Id",
+        Description = "Get Client by Id",
+        OperationId = "GetClientById")]
+        [SwaggerResponse(200, "Client returned", typeof(ClientResource))]
+
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ClientResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             var result = await _clientService.GetByIdAsync(id);
@@ -45,7 +63,15 @@ namespace web_services_ielectric.Controllers
             return Ok(clientResult);
         }
 
+        [SwaggerOperation(
+        Summary = "Save Client",
+        Description = "Save Client",
+        OperationId = "SaveClient")]
+        [SwaggerResponse(200, "Client saved", typeof(ClientResource))]
+
         [HttpPost]
+        [ProducesResponseType(typeof(ClientResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PostAsync([FromBody] SaveClientResource resource)
         {
             if (!ModelState.IsValid)
@@ -62,7 +88,15 @@ namespace web_services_ielectric.Controllers
             return Ok(clientResource);
         }
 
+        [SwaggerOperation(
+        Summary = "Update Client",
+        Description = "Update Client",
+        OperationId = "UpdateClient")]
+        [SwaggerResponse(200, "Client updated", typeof(ClientResource))]
+
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(ClientResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PutAsync(long id, [FromBody] SaveClientResource resource)
         {
             if (!ModelState.IsValid)
@@ -78,7 +112,15 @@ namespace web_services_ielectric.Controllers
             return Ok(clientResource);
         }
 
+        [SwaggerOperation(
+        Summary = "Delete Client",
+        Description = "Delete Client",
+        OperationId = "DeleteClient")]
+        [SwaggerResponse(200, "Client deleted", typeof(ClientResource))]
+
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(ClientResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> DeleteAsync(long id)
         {
             var result = await _clientService.DeleteAsync(id);

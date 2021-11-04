@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using web_services_ielectric.Resources;
 namespace web_services_ielectric.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("/api/v1/[controller]")]
     public class TechniciansController : ControllerBase
     {
@@ -24,7 +26,15 @@ namespace web_services_ielectric.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+        Summary = "Get all Technicians",
+        Description = "Get of all Technicians",
+        OperationId = "GetAllTechnicians")]
+        [SwaggerResponse(200, "All Technicians returned", typeof(IEnumerable<TechnicianResource>))]
+
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<TechnicianResource>), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IEnumerable<TechnicianResource>> GetAllAsync()
         {
             var technicians = await _technicianService.ListAsync();
@@ -32,7 +42,15 @@ namespace web_services_ielectric.Controllers
             return resources;
         }
 
+        [SwaggerOperation(
+        Summary = "Get Technicians by Id",
+        Description = "Get Technicians by Id",
+        OperationId = "GetTechniciansById")]
+        [SwaggerResponse(200, "Technicians returned", typeof(TechnicianResource))]
+
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(TechnicianResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByIdAsyn(long id)
         {
             var result = await _technicianService.GetByIdAsync(id);
@@ -45,7 +63,15 @@ namespace web_services_ielectric.Controllers
             return Ok(technicianResult);
         }
 
+        [SwaggerOperation(
+        Summary = "Save Technician",
+        Description = "Save Technician",
+        OperationId = "SaveTechnician")]
+        [SwaggerResponse(200, "Technician saved", typeof(TechnicianResource))]
+
         [HttpPost]
+        [ProducesResponseType(typeof(TechnicianResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PostAsync([FromBody] SaveTechnicianResource resource)
         {
             if (!ModelState.IsValid)
@@ -62,7 +88,15 @@ namespace web_services_ielectric.Controllers
             return Ok(technicianResource);
         }
 
+        [SwaggerOperation(
+        Summary = "Update Technician",
+        Description = "Update Technician",
+        OperationId = "UpdateTechnician")]
+        [SwaggerResponse(200, "Technician updated", typeof(TechnicianResource))]
+
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(TechnicianResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PutAsync(long id, [FromBody] SaveTechnicianResource resource)
         {
             if (!ModelState.IsValid)
@@ -79,7 +113,15 @@ namespace web_services_ielectric.Controllers
             return Ok(technicianResource);
         }
 
+        [SwaggerOperation(
+        Summary = "Delete Technician",
+        Description = "Delete Technician",
+        OperationId = "DeleteTechnician")]
+        [SwaggerResponse(200, "Technician deleted", typeof(TechnicianResource))]
+
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(TechnicianResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> DeleteAsync(long id)
         {
             var result = await _technicianService.DeleteAsync(id);
