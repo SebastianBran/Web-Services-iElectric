@@ -17,6 +17,7 @@ namespace web_services_ielectric.Persistence.Contexts
         public DbSet<Client> Clients { get; set; }
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<ApplianceModel> ApplianceModels { get; set; }
+        public DbSet<ApplianceBrand> ApplianceBrands { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -79,6 +80,13 @@ namespace web_services_ielectric.Persistence.Contexts
             );
             
             // END APPLIANCE //
+            // START BRAND //
+            builder.Entity<ApplianceBrand>().ToTable("Appliances");
+            builder.Entity<ApplianceBrand>().HasKey(a => a.Id);
+            builder.Entity<ApplianceBrand>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<ApplianceBrand>().Property(a => a.Name).IsRequired();
+            builder.Entity<ApplianceBrand>().Property(a => a.ImgPath).IsRequired();
+            // END BRAND//
 
             // START ANNOUNCEMENT //
 
