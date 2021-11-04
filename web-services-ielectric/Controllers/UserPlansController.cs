@@ -12,7 +12,8 @@ using web_services_ielectric.Resources;
 namespace web_services_ielectric.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]")]
+    [Produces("application/json")]
+    [Route("/api/v1/[controller]")]
     public class UserPlansController : ControllerBase
     {
         private readonly IUserPlanService _userPlanService;
@@ -42,8 +43,8 @@ namespace web_services_ielectric.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var petIllnesResource = _mapper.Map<UserPlan, UserPlanResource>(result.Resource);
-            return Ok(petIllnesResource);
+            var UserPlanResource = _mapper.Map<UserPlan, UserPlanResource>(result.Resource);
+            return Ok(UserPlanResource);
         }
 
         [HttpDelete("users/{userId}/plans/{planId}")]
@@ -53,8 +54,8 @@ namespace web_services_ielectric.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var petIllnesResource = _mapper.Map<UserPlan, UserPlanResource>(result.Resource);
-            return Ok(petIllnesResource);
+            var UserPlanResource = _mapper.Map<UserPlan, UserPlanResource>(result.Resource);
+            return Ok(UserPlanResource);
         }
     }
 }

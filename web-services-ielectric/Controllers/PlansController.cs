@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,8 @@ using web_services_ielectric.Resources;
 namespace web_services_ielectric.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]")]
+    [Produces("application/json")]
+    [Route("/api/v1/[controller]")]
     public class PlansController : ControllerBase
     {
         private readonly IPlanService _planService;
@@ -23,8 +25,15 @@ namespace web_services_ielectric.Controllers
             _planService = planService;
             _mapper = mapper;
         }
+        [SwaggerOperation(
+        Summary = "Get all Plans",
+        Description = "Get of all Plans",
+        OperationId = "GetAllPlans")]
+        [SwaggerResponse(200, "All Plans returned", typeof(IEnumerable<PlanResource>))]
+
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<PlanResource>), 200)]
         public async Task<IEnumerable<PlanResource>> GetAllAsync()
         {
             var plans = await _planService.ListAsync();
@@ -32,8 +41,15 @@ namespace web_services_ielectric.Controllers
                 .Map<IEnumerable<Plan>, IEnumerable<PlanResource>>(plans);
             return resources;
         }
+        [SwaggerOperation(
+        Summary = "Get Plan by Id",
+        Description = "Get Plan by Id",
+        OperationId = "GetPlanById")]
+        [SwaggerResponse(200, "Plan returned", typeof(PlanResource))]
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(PlanResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetAsync(int id)
         {
             var result = await _planService.GetByIdAsync(id);
@@ -43,7 +59,15 @@ namespace web_services_ielectric.Controllers
             return Ok(planResource);
         }
 
+        [SwaggerOperation(
+        Summary = "Save Plan",
+        Description = "Save Plan",
+        OperationId = "SavePlan")]
+        [SwaggerResponse(200, "Plan saved", typeof(PlanResource))]
+
         [HttpPost]
+        [ProducesResponseType(typeof(PlanResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PostAsync([FromBody] SavePlanResource resource)
         {
             if (!ModelState.IsValid)
@@ -60,7 +84,15 @@ namespace web_services_ielectric.Controllers
 
         }
 
+        [SwaggerOperation(
+        Summary = "Update Plan",
+        Description = "Update Plan",
+        OperationId = "UpdatePlan")]
+        [SwaggerResponse(200, "Plan updated", typeof(PlanResource))]
+
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(PlanResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SavePlanResource resource)
         {
             if (!ModelState.IsValid)
@@ -77,7 +109,16 @@ namespace web_services_ielectric.Controllers
 
         }
 
+        [SwaggerOperation(
+        Summary = "Delete Plan",
+        Description = "Delete Plan",
+        OperationId = "DeletePlan")]
+        [SwaggerResponse(200, "Plan deleted", typeof(PlanResource))]
+
+
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(PlanResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _planService.DeleteAsync(id);
