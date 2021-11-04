@@ -6,7 +6,7 @@ using web_services_ielectric.Domain.Models;
 
 namespace web_services_ielectric.Domain.Repositories
 {
-    public interface IPlanRepository
+    public interface IUserPlanRepository
     {
         Task<IEnumerable<UserPlan>> ListAsync();
         Task<IEnumerable<UserPlan>> ListByUserIdAsync(int userId);
