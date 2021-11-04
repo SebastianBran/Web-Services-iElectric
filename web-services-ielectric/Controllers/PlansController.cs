@@ -25,12 +25,12 @@ namespace web_services_ielectric.Controllers
             _planService = planService;
             _mapper = mapper;
         }
+
         [SwaggerOperation(
         Summary = "Get all Plans",
         Description = "Get of all Plans",
         OperationId = "GetAllPlans")]
         [SwaggerResponse(200, "All Plans returned", typeof(IEnumerable<PlanResource>))]
-
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PlanResource>), 200)]
@@ -41,6 +41,7 @@ namespace web_services_ielectric.Controllers
                 .Map<IEnumerable<Plan>, IEnumerable<PlanResource>>(plans);
             return resources;
         }
+
         [SwaggerOperation(
         Summary = "Get Plan by Id",
         Description = "Get Plan by Id",
