@@ -45,7 +45,7 @@ namespace web_services_ielectric.Controllers
         [SwaggerOperation(
         Summary = "Get Client by Id",
         Description = "Get Client by Id",
-        OperationId = "GetClientsById")]
+        OperationId = "GetClientById")]
         [SwaggerResponse(200, "Client returned", typeof(ClientResource))]
 
         [HttpGet("{id}")]

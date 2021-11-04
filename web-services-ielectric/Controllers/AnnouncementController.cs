@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using web_services_ielectric.Resources;
 namespace web_services_ielectric.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("/api/v1/[controller]")]
     public class AnnouncementController : ControllerBase
     {
@@ -24,7 +26,15 @@ namespace web_services_ielectric.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+        Summary = "Get all Announcements",
+        Description = "Get of all Announcements",
+        OperationId = "GetAllAnnouncements")]
+        [SwaggerResponse(200, "All Announcements returned", typeof(IEnumerable<AnnouncementResource>))]
+
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<AnnouncementResource>), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IEnumerable<AnnouncementResource>> GetAllAsync()
         {
             var announcementes = await _announcementService.ListAsync();
@@ -32,7 +42,15 @@ namespace web_services_ielectric.Controllers
             return resources;
         }
 
+        [SwaggerOperation(
+        Summary = "Get Announcement by Id",
+        Description = "Get Announcement by Id",
+        OperationId = "GetAnnouncementById")]
+        [SwaggerResponse(200, "Announcement returned", typeof(AnnouncementResource))]
+
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(AnnouncementResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> getByIdAsync(long id)
         {
             var result = await _announcementService.GetByIdAsync(id);
@@ -45,7 +63,15 @@ namespace web_services_ielectric.Controllers
             return Ok(announcementResult);
         }
 
+        [SwaggerOperation(
+        Summary = "Save Announcement",
+        Description = "Save Announcement",
+        OperationId = "SaveAnnouncement")]
+        [SwaggerResponse(200, "Announcement saved", typeof(AnnouncementResource))]
+
         [HttpPost]
+        [ProducesResponseType(typeof(AnnouncementResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PostAsync([FromBody] SaveAnnouncementResource resource)
         {
             if (!ModelState.IsValid)
@@ -62,7 +88,15 @@ namespace web_services_ielectric.Controllers
             return Ok(announcementResource);
         }
 
+        [SwaggerOperation(
+        Summary = "Update Announcement",
+        Description = "Update Announcement",
+        OperationId = "UpdateAnnouncement")]
+        [SwaggerResponse(200, "Announcement updated", typeof(AnnouncementResource))]
+
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(AnnouncementResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PutAsync(long id, [FromBody] SaveAnnouncementResource resource)
         {
             if (!ModelState.IsValid)
@@ -79,7 +113,15 @@ namespace web_services_ielectric.Controllers
             return Ok(announcementResource);
         }
 
+        [SwaggerOperation(
+        Summary = "Delete Announcement",
+        Description = "Delete Announcement",
+        OperationId = "DeleteAnnouncement")]
+        [SwaggerResponse(200, "Announcement deleted", typeof(AnnouncementResource))]
+
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(AnnouncementResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> DeleteAsync(long id)
         {
             var result = await _announcementService.DeleteAsync(id);
