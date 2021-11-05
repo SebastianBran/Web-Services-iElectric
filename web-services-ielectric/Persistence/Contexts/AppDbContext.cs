@@ -86,6 +86,7 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<ApplianceBrand>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<ApplianceBrand>().Property(a => a.Name).IsRequired();
             builder.Entity<ApplianceBrand>().Property(a => a.ImgPath).IsRequired();
+            builder.Entity<ApplianceBrand>().Property(a => a.ApplianceModels).IsRequired();
             // END BRAND//
 
             // START ANNOUNCEMENT //

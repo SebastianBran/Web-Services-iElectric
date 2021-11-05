@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using web_services_ielectric.Domain.Models;
 
 namespace web_services_ielectric.Resources
 {
@@ -10,5 +12,7 @@ namespace web_services_ielectric.Resources
         public string Name { get; set; }
         [Required]
         public string ImgPath { get; set; }
+        [Required]
+        public List<ApplianceModel> ApplianceModels { get; set; }
     }
 }

@@ -56,6 +56,7 @@ namespace web_services_ielectric.Services
 
             existingApplianceBrand.Name = applianceBrand.Name;
             existingApplianceBrand.ImgPath = applianceBrand.ImgPath;
+            existingApplianceBrand.ApplianceModels = applianceBrand.ApplianceModels;
             try
             {
                 _applianceBrandRepository.Update(existingApplianceBrand);
