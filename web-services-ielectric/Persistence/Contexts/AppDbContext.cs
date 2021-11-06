@@ -18,6 +18,7 @@ namespace web_services_ielectric.Persistence.Contexts
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -66,6 +67,10 @@ namespace web_services_ielectric.Persistence.Contexts
                 .WithOne(p => p.Technician)
                 .HasForeignKey(p => p.TechnicianId);
 
+            builder.Entity<Technician>().HasMany(p => p.Report)
+                .WithOne(p => p.Technician)
+                .HasForeignKey(p => p.TechnicianId);
+
             builder.Entity<Technician>().HasData(
                 new Technician { Id = 1, Names = "Estefano Sebastian", LastNames = "Bran Zapata", Address = "Los Angeles", CellphoneNumber = 987899219, Email = "sebas@gmail.com", Password = "Sebas123" }
             );
@@ -87,7 +92,7 @@ namespace web_services_ielectric.Persistence.Contexts
             // END ANNOUNCEMENT //
 
 
-            // START ANNOUNCEMENT //
+            // START APPOINTMENT //
             builder.Entity<Appointment>().ToTable("Appointments");
             builder.Entity<Appointment>().HasKey(p => p.Id);
             builder.Entity<Appointment>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
@@ -105,7 +110,20 @@ namespace web_services_ielectric.Persistence.Contexts
                     Done = false
                 }
             );
-            // END ANNOUNCEMENT //
+            // END APPOINTMENT //
+
+
+            // START REPORT //
+            builder.Entity<Report>().ToTable("Reports");
+            builder.Entity<Report>().HasKey(p => p.Id);
+            builder.Entity<Report>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Report>().Property(p => p.Observation).IsRequired().HasMaxLength(30);
+            builder.Entity<Report>().Property(p => p.Diagnosis).IsRequired().HasMaxLength(30);
+            builder.Entity<Report>().Property(p => p.RepairDescription).IsRequired().HasMaxLength(200);
+            builder.Entity<Report>().Property(p => p.ImagePath).IsRequired().HasMaxLength(100);
+            builder.Entity<Report>().Property(p => p.Date).IsRequired();
+            // END REPORT //
+
 
 
             // Apply Snake Case Naming Convention to All Objects

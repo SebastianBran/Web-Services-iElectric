@@ -21,6 +21,7 @@ namespace web_services_ielectric.Mapping
                             opt => opt.MapFrom(source => source.TypeOfAnnouncement.ToDescriptionString()));
 
             CreateMap<Appointment, AppointmentResource>();
+            CreateMap<Report, ReportResource>();
         }
     }
 }

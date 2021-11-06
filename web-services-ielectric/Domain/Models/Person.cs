@@ -18,5 +18,6 @@ namespace web_services_ielectric.Domain.Models
 
         //Relationships
         public IList<Appointment> Appointment { get; set; } = new List<Appointment>(); // -- Relación de uno a muchos
+        public IList<Report> Report { get; set; } = new List<Report>();
     }
 }
