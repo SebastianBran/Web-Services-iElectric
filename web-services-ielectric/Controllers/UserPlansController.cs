@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,12 +48,12 @@ namespace web_services_ielectric.Controllers
         OperationId = "SaveUserPlan")]
         [SwaggerResponse(200, "UserPlan saved", typeof(PlanResource))]
 
-        [HttpPost("users/{userId}/plans/{planId}")]
+        [HttpPost("users/{clientId}/plans/{planId}")]
         [ProducesResponseType(typeof(UserPlanResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
-        public async Task<IActionResult> AssignUserPlan(int userId, int planId, [FromBody] SaveUserPlanResource resource)
+        public async Task<IActionResult> AssignUserPlan(int clientId, int planId, [FromBody] SaveUserPlanResource resource)
         {
-            var result = await _userPlanService.AssignUserPlanAsync(userId, planId, resource.DateOfUpdate);
+            var result = await _userPlanService.AssignUserPlanAsync(clientId, planId, resource.DateOfUpdate);
             if (!result.Success)
                 return BadRequest(result.Message);
 
@@ -69,9 +70,9 @@ namespace web_services_ielectric.Controllers
         [HttpDelete("users/{userId}/plans/{planId}")]
         [ProducesResponseType(typeof(UserPlanResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
-        public async Task<IActionResult> UnassignUserPlan(int userId, int planId, [FromBody] SaveUserPlanResource resource)
+        public async Task<IActionResult> UnassignUserPlan(int clientId, int planId, [FromBody] SaveUserPlanResource resource)
         {
-            var result = await _userPlanService.UnassignUserPlanAsync(userId, planId, resource.DateOfUpdate);
+            var result = await _userPlanService.UnassignUserPlanAsync(clientId, planId, resource.DateOfUpdate);
             if (!result.Success)
                 return BadRequest(result.Message);
 
