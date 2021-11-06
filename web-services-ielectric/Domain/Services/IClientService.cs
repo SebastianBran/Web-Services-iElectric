@@ -10,6 +10,7 @@ namespace web_services_ielectric.Domain.Services
     public interface IClientService
     {
         Task<IEnumerable<Client>> ListAsync();
+        Task<IEnumerable<Client>> ListByPlanIdAsync(int planId);
         Task<ClientResponse> GetByIdAsync(long id);
         Task<ClientResponse> SaveAsync(Client client);
         Task<ClientResponse> UpdateAsync(long id, Client client);
