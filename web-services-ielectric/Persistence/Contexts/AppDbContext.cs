@@ -19,6 +19,7 @@ namespace web_services_ielectric.Persistence.Contexts
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<SpareRequest> SpareRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -71,6 +72,11 @@ namespace web_services_ielectric.Persistence.Contexts
                 .WithOne(p => p.Technician)
                 .HasForeignKey(p => p.TechnicianId);
 
+            builder.Entity<Technician>().HasMany(p => p.SpareRequest)
+                .WithOne(p => p.Technician)
+                .HasForeignKey(p => p.TechnicianId);
+
+            //Example
             builder.Entity<Technician>().HasData(
                 new Technician { Id = 1, Names = "Estefano Sebastian", LastNames = "Bran Zapata", Address = "Los Angeles", CellphoneNumber = 987899219, Email = "sebas@gmail.com", Password = "Sebas123" }
             );
