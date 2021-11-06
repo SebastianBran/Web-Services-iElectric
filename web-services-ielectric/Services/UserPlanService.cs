@@ -36,19 +36,19 @@ namespace web_services_ielectric.Services
             return await _userPlanRepository.ListByPlanIdAsync(planId);
         }
 
-        public async Task<IEnumerable<UserPlan>> ListByUserIdAsync(int userId)
+        public async Task<IEnumerable<UserPlan>> ListByUserIdAsync(int clientId)
         {
-            return await _userPlanRepository.ListByUserIdAsync(userId);
+            return await _userPlanRepository.ListByUserIdAsync(clientId);
         }
 
-        public async Task<UserPlanResponse> AssignUserPlanAsync(int userId, int planId, DateTime date)
+        public async Task<UserPlanResponse> AssignUserPlanAsync(int clientId, int planId, DateTime date)
         {
             try
             {
-                await _userPlanRepository.AssingUserPlan(userId, planId, date);
+                await _userPlanRepository.AssingUserPlan(clientId, planId, date);
                 await _unitOfWork.CompleteAsync();
 
-                UserPlan userPlan = await _userPlanRepository.FindByUserIdDateAndPlanIdAsync(userId, planId, date);
+                UserPlan userPlan = await _userPlanRepository.FindByUserIdDateAndPlanIdAsync(clientId, planId, date);
 
                 return new UserPlanResponse(userPlan);
             }
@@ -58,13 +58,13 @@ namespace web_services_ielectric.Services
             }
         }
 
-        public async Task<UserPlanResponse> UnassignUserPlanAsync(int userId, int planId, DateTime date)
+        public async Task<UserPlanResponse> UnassignUserPlanAsync(int clientId, int planId, DateTime date)
         {
             try
             {
-                UserPlan userPlan = await _userPlanRepository.FindByUserIdDateAndPlanIdAsync(userId, planId, date);
+                UserPlan userPlan = await _userPlanRepository.FindByUserIdDateAndPlanIdAsync(clientId, planId, date);
 
-                _userPlanRepository.UnassingUserPlan(userId, planId, date);
+                _userPlanRepository.UnassingUserPlan(clientId, planId, date);
                 await _unitOfWork.CompleteAsync();
 
 
