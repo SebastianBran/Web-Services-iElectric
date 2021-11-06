@@ -15,5 +15,8 @@ namespace web_services_ielectric.Domain.Models
         public string Address { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+
+        //Relationships
+        public IList<Appointment> Appointment { get; set; } = new List<Appointment>(); // -- Relación de uno a muchos
     }
 }

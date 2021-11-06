@@ -18,6 +18,8 @@ namespace web_services_ielectric.Mapping
             CreateMap<SaveAnnouncementResource, Announcement>()
                 .ForMember(target => target.TypeOfAnnouncement,
                             opt => opt.MapFrom(source => (ETypeOfAnnouncement)source.TypeOfAnnouncement));
+            CreateMap<SaveAppointmentResource, Appointment>();
+
         }
     }
 }

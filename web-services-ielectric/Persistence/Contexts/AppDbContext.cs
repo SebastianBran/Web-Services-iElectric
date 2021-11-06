@@ -17,10 +17,12 @@ namespace web_services_ielectric.Persistence.Contexts
         public DbSet<Client> Clients { get; set; }
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
 
             // START PERSON //
 
@@ -34,13 +36,18 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Person>().Property(p => p.Address).IsRequired().HasMaxLength(50);
             builder.Entity<Person>().Property(p => p.Email).IsRequired();
             builder.Entity<Person>().Property(p => p.Password).IsRequired();
-
+            
             // END PERSON //
 
             // START CLIENT //
 
             // Constraints
             builder.Entity<Client>().ToTable("Clients");
+
+            //Relationships
+            builder.Entity<Client>().HasMany(p => p.Appointment)
+                .WithOne(p => p.Client)
+                .HasForeignKey(p => p.ClientId);
 
             //Example data
             /*builder.Entity<Client>().HasData(
@@ -53,6 +60,11 @@ namespace web_services_ielectric.Persistence.Contexts
 
             //Constraints
             builder.Entity<Technician>().ToTable("Technicians");
+
+            //Relationships
+            builder.Entity<Technician>().HasMany(p => p.Appointment)
+                .WithOne(p => p.Technician)
+                .HasForeignKey(p => p.TechnicianId);
 
             builder.Entity<Technician>().HasData(
                 new Technician { Id = 1, Names = "Estefano Sebastian", LastNames = "Bran Zapata", Address = "Los Angeles", CellphoneNumber = 987899219, Email = "sebas@gmail.com", Password = "Sebas123" }
@@ -72,6 +84,27 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Announcement>().Property(p => p.TypeOfAnnouncement).IsRequired();
             builder.Entity<Announcement>().Property(p => p.Visible).IsRequired();
 
+            // END ANNOUNCEMENT //
+
+
+            // START ANNOUNCEMENT //
+            builder.Entity<Appointment>().ToTable("Appointments");
+            builder.Entity<Appointment>().HasKey(p => p.Id);
+            builder.Entity<Appointment>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Appointment>().Property(p => p.DateReserve).IsRequired();
+            builder.Entity<Appointment>().Property(p => p.Hour).IsRequired();
+            // builder.Entity<Appointment>().Property(p => p.Done).IsRequired();
+
+            builder.Entity<Appointment>().HasData(
+                new Appointment { 
+                    Id = 1, 
+                    DateReserve = "10-12-2021",
+                    DateAttention = "10-12-2021",
+                    Hour = "15:00",
+                    ClientId = 1,
+                    Done = false
+                }
+            );
             // END ANNOUNCEMENT //
 
 
