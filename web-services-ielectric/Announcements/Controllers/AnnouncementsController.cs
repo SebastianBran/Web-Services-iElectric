@@ -15,12 +15,12 @@ namespace web_services_ielectric.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("/api/v1/[controller]")]
-    public class AnnouncementController : ControllerBase
+    public class AnnouncementsController : ControllerBase
     {
         private readonly IAnnouncementService _announcementService;
         private readonly IMapper _mapper;
 
-        public AnnouncementController(IAnnouncementService announcement, IMapper mapper)
+        public AnnouncementsController(IAnnouncementService announcement, IMapper mapper)
         {
             _announcementService = announcement;
             _mapper = mapper;
@@ -51,7 +51,7 @@ namespace web_services_ielectric.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(AnnouncementResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
-        public async Task<IActionResult> getByIdAsync(long id)
+        public async Task<IActionResult> GetByIdAsync(long id)
         {
             var result = await _announcementService.GetByIdAsync(id);
 
