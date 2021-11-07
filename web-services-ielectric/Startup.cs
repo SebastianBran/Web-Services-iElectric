@@ -46,6 +46,8 @@ namespace web_services_ielectric
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
             services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
+            services.AddScoped<IPlanRepository, PlanRepository>();
+            services.AddScoped<IUserPlanRepository, UserPlanRepository>();
 
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -54,6 +56,8 @@ namespace web_services_ielectric
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ITechnicianService, TechnicianService>();
             services.AddScoped<IAnnouncementService, AnnouncementService>();
+            services.AddScoped<IPlanService, PlanService>();
+            services.AddScoped<IUserPlanService, UserPlanService>();
 
             //Endpoint Naming Conventions
             services.AddRouting(options => options.LowercaseUrls = true);

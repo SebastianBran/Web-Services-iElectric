@@ -7,5 +7,6 @@ namespace web_services_ielectric.Resources
 {
     public class ClientResource : PersonResource
     {
+        public List<UserPlanResource> UserPlans { get; set; }
     }
 }

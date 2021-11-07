@@ -8,8 +8,8 @@ namespace web_services_ielectric.Domain.Models
     public class UserPlan
     {
         // Properties
-        public int UserId { get; set; }
-        public Person Person { get; set; }
+        public long ClientId { get; set; }
+        public Client Client { get; set; }
         public int PlanId { get; set; }
         public Plan Plan { get; set; }
         public DateTime DateOfUpdate { get; set; }

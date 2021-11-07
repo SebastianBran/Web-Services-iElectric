@@ -20,25 +20,25 @@ namespace web_services_ielectric.Persistence.Repositories
             await _context.UserPlans.AddAsync(userPlan);
         }
 
-        public async Task AssingUserPlan(int userId, int planId, DateTime date)
+        public async Task AssingUserPlan(int clientId, int planId, DateTime date)
         {
-            UserPlan userPlan = await FindByUserIdDateAndPlanIdAsync(userId, planId, date);
+            UserPlan userPlan = await FindByUserIdDateAndPlanIdAsync(clientId, planId, date);
             if (userPlan == null)
             {
-                userPlan = new UserPlan { UserId = userId, PlanId = planId, DateOfUpdate = date };
+                userPlan = new UserPlan { ClientId = clientId, PlanId = planId, DateOfUpdate = date };
                 await AddAsync(userPlan);
             }
         }
 
-        public async Task<UserPlan> FindByUserIdDateAndPlanIdAsync(int userId, int planId, DateTime date)
+        public async Task<UserPlan> FindByUserIdDateAndPlanIdAsync(int clientId, int planId, DateTime date)
         {
-            return await _context.UserPlans.FindAsync(userId, planId, date);
+            return await _context.UserPlans.FindAsync(clientId, planId, date);
         }
 
         public async Task<IEnumerable<UserPlan>> ListAsync()
         {
             return await _context.UserPlans
-                .Include(up => up.User)
+                .Include(up => up.Client)
                 .Include(up => up.Plan)
                 .ToListAsync();
         }
@@ -47,7 +47,7 @@ namespace web_services_ielectric.Persistence.Repositories
         {
             return await _context.UserPlans
                 .Where(up => up.DateOfUpdate == date)
-                .Include(up => up.User)
+                .Include(up => up.Client)
                 .Include(up => up.Plan)
                 .ToListAsync();
         }
@@ -60,11 +60,11 @@ namespace web_services_ielectric.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<UserPlan>> ListByUserIdAsync(int userId)
+        public async Task<IEnumerable<UserPlan>> ListByUserIdAsync(int clientId)
         {
             return await _context.UserPlans
-                .Where(up => up.UserId == userId)
-                .Include(up => up.User)
+                .Where(up => up.ClientId == clientId)
+                .Include(up => up.Client)
                 .ToListAsync();
         }
 
@@ -73,9 +73,9 @@ namespace web_services_ielectric.Persistence.Repositories
             _context.UserPlans.Remove(userPlan);
         }
 
-        public async void UnassingUserPlan(int userId, int planId, DateTime date)
+        public async void UnassingUserPlan(int clientId, int planId, DateTime date)
         {
-            UserPlan userPlan = await FindByUserIdDateAndPlanIdAsync(userId, planId, date);
+            UserPlan userPlan = await FindByUserIdDateAndPlanIdAsync(clientId, planId, date);
             if (userPlan != null)
             {
                 Remove(userPlan);

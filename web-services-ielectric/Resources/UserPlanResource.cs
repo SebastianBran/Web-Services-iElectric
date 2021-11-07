@@ -7,7 +7,7 @@ namespace web_services_ielectric.Resources
 {
     public class UserPlanResource
     {
-        public int UserId { get; set; }
+        public int clientId { get; set; }
         public int PlanId { get; set; }
         public PlanResource Plan { get; set; }
         public DateTime DateOfUpdate { get; set; }
