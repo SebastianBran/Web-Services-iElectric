@@ -12,12 +12,13 @@ namespace web_services_ielectric.Services
     public class ClientService : IClientService
     {
         private readonly IClientRepository _clientRepository;
-        private readonly IUserPlanRepository _userPlanRepository;
+        private readonly IPlanRepository _planRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ClientService(IClientRepository clientRepository, IUnitOfWork unitOfWork)
+        public ClientService(IClientRepository clientRepository,IPlanRepository planRepository, IUnitOfWork unitOfWork)
         {
             _clientRepository = clientRepository;
+            _planRepository = planRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -69,12 +70,6 @@ namespace web_services_ielectric.Services
             {
                 return new ClientResponse($"An error occurred while saving the client: {e.Message}");
             }
-        }
-        public async Task<IEnumerable<Client>> ListByPlanIdAsync(int planId)
-        {
-            var userPlan = await _userPlanRepository.ListByPlanIdAsync(planId);
-            var users = userPlan.Select(up=>up.Client).ToList();
-            return users;
         }
         public async Task<ClientResponse> UpdateAsync(long id, Client client)
         {

@@ -12,17 +12,15 @@ namespace web_services_ielectric.Services
     public class PlanService : IPlanService
     {
         private readonly IPlanRepository _planRepository;
-        private readonly IUserPlanRepository _userPlanRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public PlanService(IPlanRepository planRepository, IUserPlanRepository userPlanRepository, IUnitOfWork unitOfWork)
+        public PlanService(IPlanRepository planRepository, IUnitOfWork unitOfWork)
         {
             _planRepository = planRepository;
-            _userPlanRepository = userPlanRepository;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<PlanResponse> DeleteAsync(int id)
+        public async Task<PlanResponse> DeleteAsync(long id)
         {
             var existingPlan = await _planRepository.FindById(id);
             if (existingPlan == null)
@@ -42,7 +40,7 @@ namespace web_services_ielectric.Services
             }
         }
 
-        public async Task<PlanResponse> GetByIdAsync(int id)
+        public async Task<PlanResponse> GetByIdAsync(long id)
         {
             var existingPlan = await _planRepository.FindById(id);
             if (existingPlan == null)
@@ -55,13 +53,6 @@ namespace web_services_ielectric.Services
         public async Task<IEnumerable<Plan>> ListAsync()
         {
             return await _planRepository.ListAsync();
-        }
-
-        public async Task<IEnumerable<Plan>> ListByUserIdAsync(int userId)
-        {
-            var userPlan = await _userPlanRepository.ListByUserIdAsync(userId);
-            var plans = userPlan.Select(up => up.Plan).ToList();
-            return plans;
         }
 
         public async Task<PlanResponse> SaveAsync(Plan plan)
@@ -79,7 +70,7 @@ namespace web_services_ielectric.Services
             }
         }
 
-        public async Task<PlanResponse> UpdateAsync(int id, Plan plan)
+        public async Task<PlanResponse> UpdateAsync(long id, Plan plan)
         {
             var existingPlan = await _planRepository.FindById(id);
             if (existingPlan == null)

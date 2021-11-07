@@ -18,7 +18,6 @@ namespace web_services_ielectric.Persistence.Contexts
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Plan> Plans { get; set; }
-        public DbSet<UserPlan> UserPlans { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -84,17 +83,6 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Plan>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Plan>().Property(p => p.Name).IsRequired().HasMaxLength(30);
             builder.Entity<Plan>().Property(p => p.Price).IsRequired();
-            //UserPlan Entity
-            builder.Entity<UserPlan>().ToTable("UserPlans");
-
-            //Constraint
-            builder.Entity<UserPlan>().HasKey(p =>new { p.ClientId, p.PlanId, p.DateOfUpdate });
-            builder.Entity<UserPlan>().Property(p => p.DateOfUpdate).ValueGeneratedOnAdd();
-
-            //Relationships
-            builder.Entity<UserPlan>().HasOne(up => up.Client).WithMany(u => u.UserPlans).HasForeignKey(up=>up.ClientId);
-            builder.Entity<UserPlan>().HasOne(up => up.Plan).WithMany(u => u.UserPlans).HasForeignKey(up => up.PlanId);
-            
             // Apply Snake Case Naming Convention to All Objects
             builder.UseSnakeCaseNamingConvention();
         }

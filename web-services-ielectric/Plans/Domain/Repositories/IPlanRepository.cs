@@ -9,7 +9,7 @@ namespace web_services_ielectric.Domain.Repositories
     public interface IPlanRepository
     {
         Task<IEnumerable<Plan>> ListAsync();
-        Task<Plan> FindById(int planId);
+        Task<Plan> FindById(long planId);
         Task AddAsync(Plan plan);
         void Update(Plan plan);
         void Remove(Plan plan);

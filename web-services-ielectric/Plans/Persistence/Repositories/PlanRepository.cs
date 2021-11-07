@@ -20,7 +20,7 @@ namespace web_services_ielectric.Persistence.Repositories
             await _context.Plans.AddAsync(plan);
         }
 
-        public async Task<Plan> FindById(int planId)
+        public async Task<Plan> FindById(long planId)
         {
             return await _context.Plans.FindAsync(planId);
         }

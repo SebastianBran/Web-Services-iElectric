@@ -20,7 +20,6 @@ namespace web_services_ielectric.Mapping
                 .ForMember(target => target.TypeOfAnnouncement,
                             opt => opt.MapFrom(source => source.TypeOfAnnouncement.ToDescriptionString()));
             CreateMap<Plan, PlanResource>();
-            CreateMap<UserPlan, UserPlanResource>();
         }
     }
 }

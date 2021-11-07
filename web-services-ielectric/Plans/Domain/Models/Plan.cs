@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace web_services_ielectric.Resources
+namespace web_services_ielectric.Domain.Models
 {
-    public class PlanResource
+    public class Plan
     {
-        public int Id { get; set; }
+        // Properties
+        public long Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
-        public List<UserPlanResource> UserPlans { get; set; }
+        public List<Plan> Plans { get; set; }
     }
 }

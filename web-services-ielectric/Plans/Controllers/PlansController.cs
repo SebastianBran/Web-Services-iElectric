@@ -128,9 +128,8 @@ namespace web_services_ielectric.Controllers
                 return BadRequest(result.Message);
 
             var planResource = _mapper.Map<Plan, PlanResource>(result.Resource);
+
             return Ok(planResource);
-
         }
-
     }
 }

@@ -21,8 +21,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Plans" />
     <Folder Include="Shared\Controllers\" />
     <Folder Include="Shared\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Domain\Repositories\IUserPlanRepository.cs" />
+    <Compile Remove="Domain\Services\IUserPlanService.cs" />
+    <Compile Remove="Persistence\Repositories\UserPlanRepository.cs" />
+    <Compile Remove="Resources\SaveUserPlanResource.cs" />
+    <Compile Remove="Resources\UserPlanResource.cs" />
+    <Compile Remove="Services\UserPlanService.cs" />
+    <Compile Remove="Domain\Models\UserPlan.cs" />
+    <Compile Remove="Controllers\UserPlansController.cs" />
+    <Compile Remove="Domain\Services\Communication\UserPlanResponse.cs" />
+    <Compile Remove="Plans\Persistence\Repositories\UserPlanRepository.cs" />
+    <Compile Remove="Plans\Domain\Services\IUserPlanService.cs" />
+    <Compile Remove="Plans\Domain\Repositories\IUserPlanRepository.cs" />
+    <Compile Remove="Plans\Domain\Models\UserPlan.cs" />
+    <Compile Remove="Plans\Controllers\UserPlansController.cs" />
+    <Compile Remove="Plans\Resources\SaveUserPlanResource.cs" />
+    <Compile Remove="Plans\Resources\UserPlanResource.cs" />
+    <Compile Remove="Plans\Domain\Services\Communication\UserPlanResponse.cs" />
   </ItemGroup>
 
 </Project>

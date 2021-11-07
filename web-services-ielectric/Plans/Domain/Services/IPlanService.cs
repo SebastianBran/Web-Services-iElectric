@@ -10,11 +10,10 @@ namespace web_services_ielectric.Domain.Services
     public interface IPlanService
     {
         Task<IEnumerable<Plan>> ListAsync();
-        Task<IEnumerable<Plan>> ListByUserIdAsync(int clientId);
-        Task<PlanResponse> GetByIdAsync(int id);
+        Task<PlanResponse> GetByIdAsync(long id);
         Task<PlanResponse> SaveAsync(Plan plan);
-        Task<PlanResponse> UpdateAsync(int id, Plan plan);
-        Task<PlanResponse> DeleteAsync(int id);
+        Task<PlanResponse> UpdateAsync(long id, Plan plan);
+        Task<PlanResponse> DeleteAsync(long id);
 
     }
 }
