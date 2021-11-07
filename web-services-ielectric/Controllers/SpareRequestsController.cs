@@ -15,12 +15,12 @@ namespace web_services_ielectric.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("/api/v1/[controller]")]
-    public class SpareRequestController: ControllerBase
+    public class SpareRequestsController: ControllerBase
     {
         private readonly ISpareRequestService _spareRequestService;
         private readonly IMapper _mapper;
 
-        public SpareRequestController(ISpareRequestService spareRequestService, IMapper mapper)
+        public SpareRequestsController(ISpareRequestService spareRequestService, IMapper mapper)
         {
             _spareRequestService = spareRequestService;
             _mapper = mapper;

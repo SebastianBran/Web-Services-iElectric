@@ -15,12 +15,12 @@ namespace web_services_ielectric.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("/api/v1/[controller]")]
-    public class ReportController: ControllerBase
+    public class ReportsController: ControllerBase
     {
         private readonly IReportService _reportService;
         private readonly IMapper _mapper;
 
-        public ReportController(IReportService reportService, IMapper mapper)
+        public ReportsController(IReportService reportService, IMapper mapper)
         {
             _reportService = reportService;
             _mapper = mapper;
