@@ -16,12 +16,13 @@ namespace web_services_ielectric.Domain.Models
         public string ImagePath { get; set; }
 
 
-        //Relationships
+        //Relationships -- Relación de muchos a uno
         public long AppointmentId { get; set; }
         public long TechnicianId { get; set; }
 
-        public Appointment Appointment { get; set; } // -- Relación de muchos a uno
+        public Appointment Appointment { get; set; }
         public Technician Technician { get; set; } 
+        
 
     }
 }

@@ -10,9 +10,14 @@ namespace web_services_ielectric.Resources
     {
         [Required]
         public string DateReserve { get; set; }
+        
+        public string DateAttention { get; set; }
 
         [Required]
         public string Hour { get; set; }
+        
+        [Required]
+        public bool Done { get; set; }
 
         [Required]
         public long ClientId { get; set; }
@@ -23,7 +28,5 @@ namespace web_services_ielectric.Resources
         //[Required]
         //public string ApplianceId { get; set; }
 
-        [Required]
-        public bool Done { get; set; }
     }
 }

@@ -9,15 +9,15 @@ namespace web_services_ielectric.Resources
     public class SaveReportResource
     {
         [Required]
-        [MaxLength(30)]
+        [MaxLength(100)]
         public string Observation { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(300)]
         public string Diagnosis { get; set; }
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(300)]
         public string RepairDescription { get; set; }
 
         [Required]
@@ -29,7 +29,6 @@ namespace web_services_ielectric.Resources
         public string ImagePath { get; set; }
 
         [Required]
-        [MaxLength(30)]
         public long AppointmentId { get; set; }
         public long TechnicianId { get; set; }
     }

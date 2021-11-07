@@ -9,7 +9,7 @@ namespace web_services_ielectric.Resources
     public class SaveSpareRequestResource
     {
         [Required]
-        [MaxLength(30)]
+        [MaxLength(300)]
         public string Description { get; set; }
 
         [Required]
@@ -17,7 +17,7 @@ namespace web_services_ielectric.Resources
         public string Date { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(100)]
         public string ImagePath { get; set; }
 
         [Required]

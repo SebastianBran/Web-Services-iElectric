@@ -15,12 +15,17 @@ namespace web_services_ielectric.Domain.Models
         public bool Done { get; set; }
 
 
-        //Relationships
+        //Relationships - de muchos a uno
         public long ClientId { get; set; }
         public long TechnicianId { get; set; }
         //public long ApplianceId { get; set; }
-        public Client Client { get; set; } // -- Relación de muchos a uno
+        public Client Client { get; set; }
         public Technician Technician { get; set; } 
+        
+        
+        //Relationships - Relación de uno a muchos
+        public IList<Report> Reports { get; set; } = new List<Report>();
+        public IList<SpareRequest> SpareRequests { get; set; } = new List<SpareRequest>();
 
     }
 }
