@@ -19,6 +19,10 @@ namespace web_services_ielectric.Mapping
             CreateMap<Announcement, AnnouncementResource>()
                 .ForMember(target => target.TypeOfAnnouncement,
                             opt => opt.MapFrom(source => source.TypeOfAnnouncement.ToDescriptionString()));
+            CreateMap<Appointment, AppointmentResource>();
+            CreateMap<Report, ReportResource>();
+            CreateMap<SpareRequest, SpareRequestResource>();
+            CreateMap<Plan, PlanResource>();
         }
     }
 }
