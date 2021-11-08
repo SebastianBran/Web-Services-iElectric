@@ -21,6 +21,7 @@ namespace web_services_ielectric.Mapping
             CreateMap<SaveAppointmentResource, Appointment>();
             CreateMap<SaveReportResource, Report>();
             CreateMap<SaveSpareRequestResource, SpareRequest>();
+            CreateMap<SavePlanResource, Plan>();
         }
     }
 }

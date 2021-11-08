@@ -49,6 +49,7 @@ namespace web_services_ielectric
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<ISpareRequestRepository, SpareRequestRepository>();
+            services.AddScoped<IPlanRepository, PlanRepository>();
 
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -60,6 +61,7 @@ namespace web_services_ielectric
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<ISpareRequestService, SpareRequestService>();
+            services.AddScoped<IPlanService, PlanService>();
 
             //Endpoint Naming Conventions
             services.AddRouting(options => options.LowercaseUrls = true);

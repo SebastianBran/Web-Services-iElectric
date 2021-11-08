@@ -20,6 +20,7 @@ namespace web_services_ielectric.Persistence.Contexts
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<SpareRequest> SpareRequests { get; set; }
+        public DbSet<Plan> Plans { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -108,6 +109,8 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Announcement>().Property(p => p.Visible).IsRequired();
             // END ANNOUNCEMENT //
 
+            //Plan Entity
+            builder.Entity<Plan>().ToTable("Plans");
 
             // START APPOINTMENT //
             // Constraints
@@ -197,6 +200,12 @@ namespace web_services_ielectric.Persistence.Contexts
             );
             // END SPARE REQUEST
             
+            //Constraints
+            builder.Entity<Plan>().HasKey(p => p.Id);
+            builder.Entity<Plan>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Plan>().Property(p => p.Name).IsRequired().HasMaxLength(30);
+            builder.Entity<Plan>().Property(p => p.Price).IsRequired();
+
             // Apply Snake Case Naming Convention to All Objects
             builder.UseSnakeCaseNamingConvention();
         }
