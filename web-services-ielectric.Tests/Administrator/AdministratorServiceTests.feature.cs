@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace web_services_ielectric.Tests.Announcement
+namespace web_services_ielectric.Tests.Administrator
 {
     using TechTalk.SpecFlow;
     using System;
@@ -19,7 +19,7 @@ namespace web_services_ielectric.Tests.Announcement
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class AnnouncementServiceTestsFeature : object, Xunit.IClassFixture<AnnouncementServiceTestsFeature.FixtureData>, System.IDisposable
+    public partial class AdministratorServiceTestsFeature : object, Xunit.IClassFixture<AdministratorServiceTestsFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace web_services_ielectric.Tests.Announcement
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "AnnouncementServiceTests.feature"
+#line 1 "AdministratorServiceTests.feature"
 #line hidden
         
-        public AnnouncementServiceTestsFeature(AnnouncementServiceTestsFeature.FixtureData fixtureData, web_services_ielectric_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public AdministratorServiceTestsFeature(AdministratorServiceTestsFeature.FixtureData fixtureData, web_services_ielectric_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,8 +40,8 @@ namespace web_services_ielectric.Tests.Announcement
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Announcement", "AnnouncementServiceTests", "\tAs a Developer\r\n\tI Want ot add new Announcement through API\r\n\tSo that it becomes" +
-                    " available for applicantions.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Administrator", "AdministratorServiceTests", "\tAs a Developer\r\n\tI Want ot add new Administrator through API\r\n\tSo that it become" +
+                    "s available for applicantions.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -81,16 +81,16 @@ namespace web_services_ielectric.Tests.Announcement
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Add Announcement")]
-        [Xunit.TraitAttribute("FeatureTitle", "AnnouncementServiceTests")]
-        [Xunit.TraitAttribute("Description", "Add Announcement")]
-        [Xunit.TraitAttribute("Category", "mytag")]
-        public virtual void AddAnnouncement()
+        [Xunit.SkippableFactAttribute(DisplayName="Add Administrator")]
+        [Xunit.TraitAttribute("FeatureTitle", "AdministratorServiceTests")]
+        [Xunit.TraitAttribute("Description", "Add Administrator")]
+        [Xunit.TraitAttribute("Category", "administrator-adding")]
+        public virtual void AddAdministrator()
         {
             string[] tagsOfScenario = new string[] {
-                    "mytag"};
+                    "administrator-adding"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Announcement", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Administrator", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -112,27 +112,27 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 8
- testRunner.Given("The Endpoint https://localhost:44346/api/v1/announcement is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The Endpoint https://localhost:44346/api/v1/administrators is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Title",
-                            "Description",
-                            "Content",
-                            "UrlToImage",
-                            "TypeOfAnnouncement",
-                            "Visible"});
-                table2.AddRow(new string[] {
-                            "New Appliance Brand",
-                            "New appliance brand available today",
-                            "New appliance brand available today",
-                            "image.png",
-                            "1",
-                            "true"});
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Names",
+                            "LastNames",
+                            "CellphoneNumber",
+                            "Address",
+                            "Email",
+                            "Password"});
+                table1.AddRow(new string[] {
+                            "Carlos",
+                            "Leon",
+                            "940596111",
+                            "San Martin",
+                            "carlos.leon@gmail.com",
+                            "carlos123"});
 #line 9
- testRunner.When("A Announcement Request is sent", ((string)(null)), table2, "When ");
+ testRunner.When("A Administrator Request is sent", ((string)(null)), table1, "When ");
 #line hidden
 #line 12
- testRunner.Then("A Response with Status 200 is received for the Announcement", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("A Response with Status 200 is received for the administrator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -145,12 +145,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                AnnouncementServiceTestsFeature.FeatureSetup();
+                AdministratorServiceTestsFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                AnnouncementServiceTestsFeature.FeatureTearDown();
+                AdministratorServiceTestsFeature.FeatureTearDown();
             }
         }
     }
