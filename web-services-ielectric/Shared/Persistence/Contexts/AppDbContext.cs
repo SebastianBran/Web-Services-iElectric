@@ -13,7 +13,7 @@ namespace web_services_ielectric.Persistence.Contexts
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
-
+        public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
@@ -39,7 +39,25 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Person>().Property(p => p.Email).IsRequired();
             builder.Entity<Person>().Property(p => p.Password).IsRequired();
             // END PERSON //
-
+            
+            // START ADMINISTRATOR //
+            // Constraints
+            builder.Entity<Administrator>().ToTable("administrators");
+            //Example data
+            builder.Entity<Administrator>().HasData(
+                new Administrator
+                {
+                    Id = 3, 
+                    Names = "Carlos",
+                    LastNames = "Leon",
+                    Address = "San Martin",
+                    CellphoneNumber = 940596111,
+                    Email = "carlos.leon@gmail.com",
+                    Password = "carlos123"
+                }
+            );
+            // END ADMINISTRATOR //
+            
             // START CLIENT //
             // Constraints
             builder.Entity<Client>().ToTable("Clients");

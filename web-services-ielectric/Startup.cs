@@ -39,10 +39,11 @@ namespace web_services_ielectric
             //Database
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySql(Configuration.GetConnectionString("AzureDbConnection"), new MySqlServerVersion(new Version(8, 0, 26)));
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 26)));
             });
 
             //Repositories
+            services.AddScoped<IAdministratorRepository, AdministratorRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
             services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
@@ -55,6 +56,7 @@ namespace web_services_ielectric
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //Services
+            services.AddScoped<IAdministratorService, AdministratorService>();
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ITechnicianService, TechnicianService>();
             services.AddScoped<IAnnouncementService, AnnouncementService>();

@@ -13,6 +13,7 @@ namespace web_services_ielectric.Mapping
         public ResourceToModelProfile()
         {
             CreateMap<SavePersonResource, Person>();
+            CreateMap<SaveAdministratorResource, Administrator>();
             CreateMap<SaveClientResource, Client>();
             CreateMap<SaveTechnicianResource, Technician>();
             CreateMap<SaveAnnouncementResource, Announcement>()
