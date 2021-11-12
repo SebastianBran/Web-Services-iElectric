@@ -16,6 +16,11 @@ using web_services_ielectric.Domain.Repositories;
 using web_services_ielectric.Persistence.Repositories;
 using web_services_ielectric.Domain.Services;
 using web_services_ielectric.Services;
+using web_services_ielectric.Shared.Settings;
+using web_services_ielectric.Security.Domain.Services;
+using web_services_ielectric.Security.Services;
+using web_services_ielectric.Security.Middleware.Interfaces;
+using web_services_ielectric.Security.Middleware.Implementation;
 
 namespace web_services_ielectric
 {
@@ -62,9 +67,16 @@ namespace web_services_ielectric
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<ISpareRequestService, SpareRequestService>();
             services.AddScoped<IPlanService, PlanService>();
+            services.AddScoped<IUserService, UserService>();
+
+            //Utilities
+            services.AddScoped<IJwtUtility, JwtUtility>();
 
             //Endpoint Naming Conventions
             services.AddRouting(options => options.LowercaseUrls = true);
+
+            //Configure AppSettings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             //AutoMapper Setup
             services.AddAutoMapper(typeof(Startup));
@@ -79,12 +91,9 @@ namespace web_services_ielectric
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger(c => c.SerializeAsV2 = true);
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "web_services_ielectric v1"));
-            //}
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger(c => c.SerializeAsV2 = true);
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "web_services_ielectric v1"));
 
             app.UseHttpsRedirection();
 
@@ -97,6 +106,9 @@ namespace web_services_ielectric
                 .AllowCredentials());
 
             app.UseAuthorization();
+
+            //Integrate JWT Authorization Middleware
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
