@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using web_services_ielectric.Domain.Models;
 using web_services_ielectric.Domain.Services;
 using web_services_ielectric.Extensions;
@@ -11,6 +12,7 @@ using web_services_ielectric.Resources;
 namespace web_services_ielectric.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("/api/v1/[controller]")]
     public class ApplianceModelController:ControllerBase
     {
@@ -22,8 +24,14 @@ namespace web_services_ielectric.Controllers
             _applianceModelService = applianceModelService;
             _mapper = mapper;
         }
-
+        [SwaggerOperation(
+            Summary = "Get all ApplianceModels",
+            Description = "Get of all ApplianceModels",
+            OperationId = "GetAllApplianceModels")]
+        [SwaggerResponse(200, "All ApplianceModels returned", typeof(IEnumerable<ApplianceModelResource>))]
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<ApplianceModelResource>), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IEnumerable<ApplianceModelResource>> GetAllAsync()
         {
             var applianceModels = await _applianceModelService.ListAsync();
@@ -31,7 +39,14 @@ namespace web_services_ielectric.Controllers
             return resources;
         }
 
+        [SwaggerOperation(
+            Summary = "Get ApplianceModel by Id",
+            Description = "Get ApplianceModel by Id",
+            OperationId = "GetApplianceModelsById")]
+        [SwaggerResponse(200, "ApplianceModel returned", typeof(ApplianceModelResource))]
         [HttpGet("{id:long}")]
+        [ProducesResponseType(typeof(ApplianceModelResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             var result = await _applianceModelService.GetByIdAsync(id);
@@ -42,7 +57,14 @@ namespace web_services_ielectric.Controllers
             return Ok(applianceModelResult);
         }
 
+        [SwaggerOperation(
+            Summary = "Save ApplianceModel",
+            Description = "Save ApplianceModel",
+            OperationId = "SaveApplianceModel")]
+        [SwaggerResponse(200, "ApplianceModel saved", typeof(ApplianceModelResource))]
         [HttpPost]
+        [ProducesResponseType(typeof(ApplianceModelResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PostAsync([FromBody] SaveApplianceModelResource resource)
         {
             if (!ModelState.IsValid)
@@ -56,7 +78,14 @@ namespace web_services_ielectric.Controllers
             return Ok(applianceModelResource); 
         }
 
+        [SwaggerOperation(
+            Summary = "Update ApplianceModel",
+            Description = "Update ApplianceModel",
+            OperationId = "UpdateApplianceModel")]
+        [SwaggerResponse(200, "ApplianceModel updated", typeof(ApplianceModelResource))]
         [HttpPut("{id:long}")]
+        [ProducesResponseType(typeof(ApplianceModelResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PutAsync(long id, [FromBody] SaveApplianceModelResource resource)
         {
             if (!ModelState.IsValid)
@@ -70,7 +99,14 @@ namespace web_services_ielectric.Controllers
             return Ok(applianceModelResource);
         }
 
+        [SwaggerOperation(
+            Summary = "Delete ApplianceModel",
+            Description = "Delete ApplianceModel",
+            OperationId = "DeleteApplianceModel")]
+        [SwaggerResponse(200, "ApplianceModel deleted", typeof(ApplianceModelResource))]
         [HttpDelete("{id:long}")]
+        [ProducesResponseType(typeof(ApplianceModelResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> DeleteAsync(long id)
         {
             var result = await _applianceModelService.DeleteAsync(id);
