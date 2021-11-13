@@ -65,7 +65,7 @@ namespace web_services_ielectric.Persistence.Contexts
             // START APPLIANCE //
             
             //Constraints
-            builder.Entity<ApplianceModel>().ToTable("Appliances");
+            builder.Entity<ApplianceModel>().ToTable("ApplianceModels");
             builder.Entity<ApplianceModel>().HasKey(a => a.Id);
             builder.Entity<ApplianceModel>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<ApplianceModel>().Property(a => a.Name).IsRequired();
@@ -81,13 +81,15 @@ namespace web_services_ielectric.Persistence.Contexts
             
             // END APPLIANCE //
             // START BRAND //
-            builder.Entity<ApplianceBrand>().ToTable("Appliances");
+            builder.Entity<ApplianceBrand>().ToTable("ApplianceBrands");
             builder.Entity<ApplianceBrand>().HasKey(a => a.Id);
             builder.Entity<ApplianceBrand>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<ApplianceBrand>().Property(a => a.Name).IsRequired();
             builder.Entity<ApplianceBrand>().Property(a => a.ImgPath).IsRequired();
-            builder.Entity<ApplianceBrand>().Property(a => a.ApplianceModels).IsRequired();
             // END BRAND//
+            builder.Entity<ApplianceBrand>().HasMany(a => a.ApplianceModels)
+                .WithOne(a => a.ApplianceBrand)
+                .HasForeignKey(a => a.ApplianceBrandId);
 
             // START ANNOUNCEMENT //
 

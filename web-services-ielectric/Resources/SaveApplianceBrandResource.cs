@@ -12,7 +12,5 @@ namespace web_services_ielectric.Resources
         public string Name { get; set; }
         [Required]
         public string ImgPath { get; set; }
-        [Required]
-        public List<ApplianceModel> ApplianceModels { get; set; }
     }
 }

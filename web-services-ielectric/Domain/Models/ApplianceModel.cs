@@ -13,6 +13,7 @@ namespace web_services_ielectric.Domain.Models
         public string PurchaseDate { get; set; }
         
         public long ApplianceBrandId { get; set; }
+        public ApplianceBrand ApplianceBrand { get; set; }
         
         public long ClientId { get; set; }
     }

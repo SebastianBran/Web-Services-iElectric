@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using web_services_ielectric.Domain.Models;
@@ -24,6 +25,13 @@ namespace web_services_ielectric.Persistence.Repositories
         public async Task<ApplianceModel> FindByIdAsync(long id)
         {
             return await _context.ApplianceModels.FindAsync(id);
+        }
+        public async Task<IEnumerable<ApplianceModel>> FindByApplianceBrandId(long applianceBrandId)
+        {
+            return await _context.ApplianceModels
+                .Where(p => p.ApplianceBrandId == applianceBrandId)
+                .Include(p => p.ApplianceBrand)
+                .ToListAsync();
         }
 
         public void Update(ApplianceModel applianceModel)
