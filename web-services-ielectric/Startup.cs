@@ -68,6 +68,7 @@ namespace web_services_ielectric
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "web_services_ielectric", Version = "v1" });
+                c.EnableAnnotations();
             });
         }
 

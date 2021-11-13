@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using web_services_ielectric.Domain.Models;
 using web_services_ielectric.Domain.Services;
@@ -10,6 +11,7 @@ using web_services_ielectric.Resources;
 namespace web_services_ielectric.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("/api/v1/[controller]")]
     public class ApplianceBrandController:ControllerBase
     {
@@ -21,16 +23,28 @@ namespace web_services_ielectric.Controllers
             _applianceBrandService = applianceBrandService;
             _mapper = mapper;
         }
-
+        [SwaggerOperation(
+            Summary = "Get all ApplianceBrands",
+            Description = "Get of all ApplianceBrands",
+            OperationId = "GetAllApplianceBrands")]
+        [SwaggerResponse(200, "All ApplianceBrands returned", typeof(IEnumerable<ApplianceBrandResource>))]
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<ApplianceBrandResource>), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IEnumerable<ApplianceBrandResource>> GetAllAsync()
         {
             var applianceBrands = await _applianceBrandService.ListAsync();
             var resources = _mapper.Map<IEnumerable<ApplianceBrand>, IEnumerable<ApplianceBrandResource>>(applianceBrands);
             return resources;
         }
-
+        [SwaggerOperation(
+            Summary = "Get ApplianceBrand by Id",
+            Description = "Get ApplianceBrand by Id",
+            OperationId = "GetApplianceBrandsById")]
+        [SwaggerResponse(200, "ApplianceBrand returned", typeof(ApplianceBrandResource))]
         [HttpGet("{id:long}")]
+        [ProducesResponseType(typeof(ApplianceBrandResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             var result = await _applianceBrandService.GetByIdAsync(id);
@@ -40,8 +54,14 @@ namespace web_services_ielectric.Controllers
 
             return Ok(applianceBrandResult);
         }
-
+        [SwaggerOperation(
+            Summary = "Save ApplianceBrand",
+            Description = "Save ApplianceBrand",
+            OperationId = "SaveApplianceBrand")]
+        [SwaggerResponse(200, "ApplianceBrand saved", typeof(ApplianceBrandResource))]
         [HttpPost]
+        [ProducesResponseType(typeof(ApplianceBrandResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PostAsync([FromBody] SaveApplianceBrandResource resource)
         {
             if (!ModelState.IsValid)
@@ -54,8 +74,14 @@ namespace web_services_ielectric.Controllers
             var applianceBrandResource = _mapper.Map<ApplianceBrand, ApplianceBrandResource>(result.Resource);
             return Ok(applianceBrandResource); 
         }
-
+        [SwaggerOperation(
+            Summary = "Update ApplianceBrand",
+            Description = "Update ApplianceBrand",
+            OperationId = "UpdateApplianceBrand")]
+        [SwaggerResponse(200, "ApplianceBrand updated", typeof(ApplianceBrandResource))]
         [HttpPut("{id:long}")]
+        [ProducesResponseType(typeof(ApplianceBrandResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PutAsync(long id, [FromBody] SaveApplianceBrandResource resource)
         {
             if (!ModelState.IsValid)
@@ -68,8 +94,14 @@ namespace web_services_ielectric.Controllers
             var applianceBrandResource = _mapper.Map<ApplianceBrand, ApplianceBrandResource>(result.Resource);
             return Ok(applianceBrandResource);
         }
-
+        [SwaggerOperation(
+            Summary = "Delete ApplianceBrand",
+            Description = "Delete ApplianceBrand",
+            OperationId = "DeleteApplianceBrand")]
+        [SwaggerResponse(200, "ApplianceBrand deleted", typeof(ApplianceBrandResource))]
         [HttpDelete("{id:long}")]
+        [ProducesResponseType(typeof(ApplianceBrandResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> DeleteAsync(long id)
         {
             var result = await _applianceBrandService.DeleteAsync(id);
