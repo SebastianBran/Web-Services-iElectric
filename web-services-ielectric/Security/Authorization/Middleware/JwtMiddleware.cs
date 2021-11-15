@@ -3,18 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using web_services_ielectric.Security.Authorization.Handlers.Interfaces;
 using web_services_ielectric.Security.Domain.Services;
-using web_services_ielectric.Security.Middleware.Interfaces;
 using web_services_ielectric.Shared.Settings;
 
-namespace web_services_ielectric.Security.Middleware.Implementation
+namespace web_services_ielectric.Security.Authorization.Middleware
 {
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IJwtUtility _jwtUtility;
+        private readonly IJwtHandler _jwtUtility;
 
-        public JwtMiddleware(RequestDelegate next, IJwtUtility jwtUtility)
+        public JwtMiddleware(RequestDelegate next, IJwtHandler jwtUtility)
         {
             _next = next;
             _jwtUtility = jwtUtility;
@@ -35,7 +35,7 @@ namespace web_services_ielectric.Security.Middleware.Implementation
             var userId = _jwtUtility.ValidateToken(token);
 
             if (userId != null)
-                context.Items["User"] = userService.GetById(userId.Value);
+                context.Items["User"] = userService.GetByIdAsync(userId.Value);
         }
     }
 }

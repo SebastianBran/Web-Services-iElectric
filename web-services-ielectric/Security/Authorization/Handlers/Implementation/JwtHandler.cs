@@ -7,17 +7,17 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using web_services_ielectric.Security.Authorization.Handlers.Interfaces;
 using web_services_ielectric.Security.Domain.Entities;
-using web_services_ielectric.Security.Middleware.Interfaces;
 using web_services_ielectric.Shared.Settings;
 
-namespace web_services_ielectric.Security.Middleware.Implementation
+namespace web_services_ielectric.Security.Authorization.Handlers.Implementation
 {
-    public class JwtUtility : IJwtUtility
+    public class JwtHandler : IJwtHandler
     {
         private readonly AppSettings _appSettings;
 
-        public JwtUtility(IOptions<AppSettings> appSettings)
+        public JwtHandler(IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
         }

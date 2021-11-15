@@ -19,8 +19,9 @@ using web_services_ielectric.Services;
 using web_services_ielectric.Shared.Settings;
 using web_services_ielectric.Security.Domain.Services;
 using web_services_ielectric.Security.Services;
-using web_services_ielectric.Security.Middleware.Interfaces;
-using web_services_ielectric.Security.Middleware.Implementation;
+using web_services_ielectric.Security.Authorization.Handlers.Interfaces;
+using web_services_ielectric.Security.Authorization.Handlers.Implementation;
+using web_services_ielectric.Security.Authorization.Middleware;
 
 namespace web_services_ielectric
 {
@@ -70,7 +71,7 @@ namespace web_services_ielectric
             services.AddScoped<IUserService, UserService>();
 
             //Utilities
-            services.AddScoped<IJwtUtility, JwtUtility>();
+            services.AddScoped<IJwtHandler, JwtHandler>();
 
             //Endpoint Naming Conventions
             services.AddRouting(options => options.LowercaseUrls = true);

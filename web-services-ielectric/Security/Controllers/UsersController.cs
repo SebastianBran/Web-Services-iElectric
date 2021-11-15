@@ -35,7 +35,7 @@ namespace web_services_ielectric.Security.Controllers
         [Authorize]
         public IActionResult GetAll()
         {
-            var users = _userService.GetAll();
+            var users = _userService.ListAsync();
             return Ok(users);
         }
     }

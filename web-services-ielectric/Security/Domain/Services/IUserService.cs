@@ -9,8 +9,8 @@ namespace web_services_ielectric.Security.Domain.Services
 {
     public interface IUserService
     {
-        AuthenticateResponse Authenticate(AuthenticateRequest request);
-        IEnumerable<User> GetAll();
-        User GetById(int id);
+        Task<AuthenticateResponse> Authenticate(AuthenticateRequest request);
+        Task<IEnumerable<User>> ListAsync();
+        Task<User> GetByIdAsync(long id);
     }
 }
