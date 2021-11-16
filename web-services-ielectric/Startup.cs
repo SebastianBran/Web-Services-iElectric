@@ -39,7 +39,7 @@ namespace web_services_ielectric
             //Database
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 26)));
+                options.UseMySql(Configuration.GetConnectionString("AzureDbConnection"), new MySqlServerVersion(new Version(8, 0, 26)));
             });
 
             //Repositories
@@ -48,6 +48,10 @@ namespace web_services_ielectric
             services.AddScoped<IApplianceModelRepository, ApplianceModelRepository>();
             services.AddScoped<IApplianceBrandRepository, ApplianceBrandRepository>();
             services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<ISpareRequestRepository, SpareRequestRepository>();
+            services.AddScoped<IPlanRepository, PlanRepository>();
 
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -58,6 +62,10 @@ namespace web_services_ielectric
             services.AddScoped<IApplianceModelService, ApplianceModelService>();
             services.AddScoped<IApplianceBrandService, ApplianceBrandService>();
             services.AddScoped<IAnnouncementService, AnnouncementService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<ISpareRequestService, SpareRequestService>();
+            services.AddScoped<IPlanService, PlanService>();
 
             //Endpoint Naming Conventions
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -75,12 +83,12 @@ namespace web_services_ielectric
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
+            //if (env.IsDevelopment())
+            //{
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
+                app.UseSwagger(c => c.SerializeAsV2 = true);
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "web_services_ielectric v1"));
-            }
+            //}
 
             app.UseHttpsRedirection();
 
