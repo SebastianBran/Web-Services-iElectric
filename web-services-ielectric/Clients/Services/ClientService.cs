@@ -15,7 +15,7 @@ namespace web_services_ielectric.Services
         private readonly IPlanRepository _planRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ClientService(IClientRepository clientRepository,IPlanRepository planRepository, IUnitOfWork unitOfWork)
+        public ClientService(IClientRepository clientRepository, IPlanRepository planRepository, IUnitOfWork unitOfWork)
         {
             _clientRepository = clientRepository;
             _planRepository = planRepository;
@@ -71,6 +71,7 @@ namespace web_services_ielectric.Services
                 return new ClientResponse($"An error occurred while saving the client: {e.Message}");
             }
         }
+
         public async Task<ClientResponse> UpdateAsync(long id, Client client)
         {
             var existingClient = await _clientRepository.FindByIdAsync(id);
@@ -95,6 +96,39 @@ namespace web_services_ielectric.Services
             catch (Exception e)
             {
                 return new ClientResponse($"An error occurred while updating the client: {e.Message}");
+            }
+        }
+        public async Task<ClientResponse> AssignUserPlanAsync(long clientId, long planId)
+        {
+            try
+            {
+                await _clientRepository.AssingUserPlan(clientId, planId);
+                await _unitOfWork.CompleteAsync();
+
+                Client client = await _clientRepository.FindByPlanIdAsync(clientId, planId);
+
+                return new ClientResponse(client);
+            }
+            catch (Exception ex)
+            {
+                return new ClientResponse($"An error ocurred while assigning User to Plan {ex.Message}");
+            }
+        }
+        public async Task<ClientResponse> UnassignUserPlanAsync(long clientId, long planId)
+        {
+            try
+            {
+                Client client = await _clientRepository.FindByPlanIdAsync(clientId, planId);
+
+                _clientRepository.UnassingUserPlan(clientId, planId);
+                await _unitOfWork.CompleteAsync();
+
+                
+                return new ClientResponse(client);
+            }
+            catch (Exception ex)
+            {
+                return new ClientResponse($"An error ocurred while unassigning User to Plan {ex.Message}");
             }
         }
     }

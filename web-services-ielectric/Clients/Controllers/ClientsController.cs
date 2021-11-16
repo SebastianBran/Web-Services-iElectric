@@ -132,5 +132,38 @@ namespace web_services_ielectric.Controllers
 
             return Ok(clientResource);
         } 
+        [SwaggerOperation(
+            Summary = "Add Plan Client",
+            Description = "Add Plan Client",
+            OperationId = "AddPlanClient")]
+        [HttpPost("clients/{clientId}/plans/{planId}")]
+        [ProducesResponseType(typeof(ClientResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        public async Task<IActionResult> AssignUserPlan(long clientId, long planId, [FromBody] SaveClientResource resource)
+        {
+            var result = await _clientService.AssignUserPlanAsync(clientId,planId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var ClientResource = _mapper.Map<Client, ClientResource>(result.Resource);
+            return Ok(ClientResource);
+        }
+        
+        [SwaggerOperation(
+            Summary = "Remove Plan Client",
+            Description = "Remove Plan Client",
+            OperationId = "RemovePlanClient")]
+        [HttpDelete("clients/{clientId}/plans/{planId}")]
+        [ProducesResponseType(typeof(ClientResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        public async Task<IActionResult> UnassignUserPlan(long clientId, long planId, [FromBody] SaveClientResource resource)
+        {
+            var result = await _clientService.UnassignUserPlanAsync(clientId, planId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var ClientResource = _mapper.Map<Client, ClientResource>(result.Resource);
+            return Ok(ClientResource);
+        }
     }
 }

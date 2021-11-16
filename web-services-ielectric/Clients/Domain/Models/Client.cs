@@ -7,7 +7,7 @@ namespace web_services_ielectric.Domain.Models
 {
     public class Client : Person
     {
-        public int ClientId { get; set; }
-        public Plan Plans { get; set; } 
+        public long PlanId { get; set; }
+        public Plan Plan { get; set; }
     }
 }
