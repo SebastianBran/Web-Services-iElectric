@@ -42,6 +42,7 @@ namespace web_services_ielectric.Persistence.Contexts
 
             // Constraints
             builder.Entity<Client>().ToTable("Clients");
+            builder.Entity<Client>().Property(p => p.PlanId);
 
             //Example data
             /*builder.Entity<Client>().HasData(
@@ -83,6 +84,7 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Plan>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Plan>().Property(p => p.Name).IsRequired().HasMaxLength(30);
             builder.Entity<Plan>().Property(p => p.Price).IsRequired();
+
             // Apply Snake Case Naming Convention to All Objects
             builder.UseSnakeCaseNamingConvention();
         }

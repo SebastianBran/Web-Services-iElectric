@@ -36,26 +36,5 @@ namespace web_services_ielectric.Persistence.Repositories
         {
             _context.Clients.Update(client);
         }
-        public async Task<Client> FindByPlanIdAsync(long clientId, long planId)
-        {
-            return await _context.Clients.FindAsync(planId);
-        }
-        public async Task AssingUserPlan(long clientId, long planId)
-        {
-            Client client = await FindByPlanIdAsync(clientId, planId);
-            if (client==null)
-            {
-                client = new Client { Id = clientId, PlanId = planId };
-                await AddAsync(client);
-            }
-        }
-        public async void UnassingUserPlan(long clientId, long planId)
-        {
-            Client client = await FindByPlanIdAsync(clientId, planId);
-            if (client != null)
-            {
-                Remove(client);
-            }
-        }
     }
 }
