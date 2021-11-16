@@ -11,7 +11,10 @@ namespace web_services_ielectric.Domain.Repositories
         Task<IEnumerable<Client>> ListAsync();
         Task AddAsync(Client client);
         Task<Client> FindByIdAsync(long id);
+        Task<Client> FindByPlanIdAsync(long clientId, long planId);
         void Update(Client client);
         void Remove(Client client);
+        Task AssingUserPlan(long clientId, long planId);
+        void UnassingUserPlan(long clientId, long planId);
     }
 }
