@@ -47,4 +47,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ApplianceBrands\Persistence\Repositories" />
+    <Folder Include="ApplianceModels\Persistence\Repositories" />
+  </ItemGroup>
+
 </Project>

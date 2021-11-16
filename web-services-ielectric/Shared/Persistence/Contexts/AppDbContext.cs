@@ -20,6 +20,9 @@ namespace web_services_ielectric.Persistence.Contexts
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<SpareRequest> SpareRequests { get; set; }
+        
+        public DbSet<ApplianceModel> ApplianceModels { get; set; }
+        public DbSet<ApplianceBrand> ApplianceBrands { get; set; }
         public DbSet<Plan> Plans { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -205,6 +208,34 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Plan>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Plan>().Property(p => p.Name).IsRequired().HasMaxLength(30);
             builder.Entity<Plan>().Property(p => p.Price).IsRequired();
+            // START APPLIANCE //
+            
+            //Constraints
+            builder.Entity<ApplianceModel>().ToTable("ApplianceModels");
+            builder.Entity<ApplianceModel>().HasKey(a => a.Id);
+            builder.Entity<ApplianceModel>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<ApplianceModel>().Property(a => a.Name).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.Model).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.ImgPath).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.PurchaseDate).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.ApplianceBrandId).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.ClientId).IsRequired();
+
+            builder.Entity<ApplianceModel>().HasData(
+                new ApplianceModel {Id=1,Name = "",Model = "",ImgPath = "",PurchaseDate = "",ApplianceBrandId = 1,ClientId = 1}
+            );
+            
+            // END APPLIANCE //
+            // START BRAND //
+            builder.Entity<ApplianceBrand>().ToTable("ApplianceBrands");
+            builder.Entity<ApplianceBrand>().HasKey(a => a.Id);
+            builder.Entity<ApplianceBrand>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<ApplianceBrand>().Property(a => a.Name).IsRequired();
+            builder.Entity<ApplianceBrand>().Property(a => a.ImgPath).IsRequired();
+            // END BRAND//
+            builder.Entity<ApplianceBrand>().HasMany(a => a.ApplianceModels)
+                .WithOne(a => a.ApplianceBrand)
+                .HasForeignKey(a => a.ApplianceBrandId);
 
             // Apply Snake Case Naming Convention to All Objects
             builder.UseSnakeCaseNamingConvention();
