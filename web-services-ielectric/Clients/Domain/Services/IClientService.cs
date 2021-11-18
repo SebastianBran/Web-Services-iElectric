@@ -14,5 +14,6 @@ namespace web_services_ielectric.Domain.Services
         Task<ClientResponse> SaveAsync(Client client);
         Task<ClientResponse> UpdateAsync(long id, Client client);
         Task<ClientResponse> DeleteAsync(long id);
+        Task<ClientResponse> UpdateUserPlanAsync(long clientId, long planId);
     }
 }

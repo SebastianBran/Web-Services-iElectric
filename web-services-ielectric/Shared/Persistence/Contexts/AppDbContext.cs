@@ -46,6 +46,7 @@ namespace web_services_ielectric.Persistence.Contexts
             // START CLIENT //
             // Constraints
             builder.Entity<Client>().ToTable("Clients");
+            builder.Entity<Client>().Property(p => p.PlanId);
 
             //Relationships
             builder.Entity<Client>().HasMany(p => p.Appointments)
@@ -53,7 +54,7 @@ namespace web_services_ielectric.Persistence.Contexts
                 .HasForeignKey(p => p.ClientId);
 
             //Example data
-            builder.Entity<Client>().HasData(
+            /*builder.Entity<Client>().HasData(
                 new Client
                 {
                     Id = 1, 
@@ -64,7 +65,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     Email = "f.felicianos@gmail.com",
                     Password = "Feliciano123"
                 }
-            );
+            );*/
             // END CLIENT //
 
             // START TECHNICIAN //
@@ -136,7 +137,7 @@ namespace web_services_ielectric.Persistence.Contexts
                 .HasForeignKey(p => p.AppointmentId);
 
             //Example
-            builder.Entity<Appointment>().HasData(
+            /*builder.Entity<Appointment>().HasData(
                 new Appointment { 
                     Id = 1, 
                     DateReserve = "10-12-2021",
@@ -146,7 +147,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     TechnicianId = 2,
                     Done = false
                 }
-            );
+            );*/
             // END APPOINTMENT //
 
 
@@ -164,7 +165,7 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Report>().Property(p => p.TechnicianId).IsRequired();
             
             //Example
-            builder.Entity<Report>().HasData(
+            /*builder.Entity<Report>().HasData(
                 new Report()
                 {
                     Id = 1,
@@ -176,7 +177,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     TechnicianId = 2,
                     AppointmentId = 1
                 }
-            );
+            );*/
             // END REPORT //
             
             // START SPARE REQUEST
@@ -190,7 +191,7 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<SpareRequest>().Property(p => p.AppointmentId).IsRequired();
             builder.Entity<SpareRequest>().Property(p => p.TechnicianId).IsRequired();
 
-            builder.Entity<SpareRequest>().HasData(
+            /*builder.Entity<SpareRequest>().HasData(
                 new SpareRequest()
                 {
                     Id = 1,
@@ -200,7 +201,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     AppointmentId = 1,
                     TechnicianId = 2
                 }
-            );
+            );*/
             // END SPARE REQUEST
             
             //Constraints
