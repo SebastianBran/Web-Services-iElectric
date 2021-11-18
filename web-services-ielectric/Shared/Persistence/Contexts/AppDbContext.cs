@@ -220,11 +220,10 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<ApplianceModel>().Property(a => a.ImgPath).IsRequired();
             builder.Entity<ApplianceModel>().Property(a => a.PurchaseDate).IsRequired();
             builder.Entity<ApplianceModel>().Property(a => a.ApplianceBrandId).IsRequired();
-            builder.Entity<ApplianceModel>().Property(a => a.ClientId).IsRequired();
 
-            builder.Entity<ApplianceModel>().HasData(
-                new ApplianceModel {Id=1,Name = "",Model = "",ImgPath = "",PurchaseDate = "",ApplianceBrandId = 1,ClientId = 1}
-            );
+            /*builder.Entity<ApplianceModel>().HasData(
+                new ApplianceModel {Id=1,Name = "",Model = "",ImgPath = "",PurchaseDate = "",ApplianceBrandId = 1 }
+            );*/
             
             // END APPLIANCE //
             // START BRAND //

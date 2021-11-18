@@ -62,7 +62,7 @@ namespace web_services_ielectric.Services
             var existingApplianceModel = await _applianceModelRepository.FindByIdAsync(id);
             if (existingApplianceModel == null)
                 return new ApplianceModelResponse("ApplianceModel not found.");
-            var existingBrand = _applianceBrandRepository.FindByIdAsync(applianceModel.ApplianceBrandId);
+            var existingBrand = await _applianceBrandRepository.FindByIdAsync(applianceModel.ApplianceBrandId);
             if (existingBrand == null)
             {
                 return new ApplianceModelResponse("Invalid Brand");
@@ -72,7 +72,6 @@ namespace web_services_ielectric.Services
             existingApplianceModel.ImgPath = applianceModel.ImgPath;
             existingApplianceModel.PurchaseDate = applianceModel.PurchaseDate;
             existingApplianceModel.ApplianceBrandId = applianceModel.ApplianceBrandId;
-            existingApplianceModel.ClientId = applianceModel.ClientId;
             try
             {
                 _applianceModelRepository.Update(existingApplianceModel);

@@ -7,7 +7,6 @@
         public string Model { get; set; }
         public string ImgPath { get; set; }
         public string PurchaseDate { get; set; }
-        public long ApplianceBrandID { get; set; }
-        public long ClientId { get; set; }
+        public long ApplianceBrandId { get; set; }
     }
 }
