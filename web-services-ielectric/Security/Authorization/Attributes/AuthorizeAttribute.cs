@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -14,6 +15,12 @@ namespace web_services_ielectric.Security.Attributes
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            var allowAnonymous = 
+                context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
+
+            if (allowAnonymous)
+                return;
+
             var user = (User)context.HttpContext.Items["User"];
 
             if (user == null)

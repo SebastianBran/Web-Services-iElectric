@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,44 +16,44 @@ namespace web_services_ielectric.Security.Persistance.Repositories
         {
         }
 
-        public Task AddAsync(User user)
+        public async Task AddAsync(User user)
         {
-            throw new NotImplementedException();
+            await _context.Users.AddAsync(user);
         }
 
         public bool ExistsByEmail(string email)
         {
-            throw new NotImplementedException();
+            return _context.Users.Any(u => u.Email == email);
         }
 
-        public Task<User> FindByEmail(string email)
+        public async Task<User> FindByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
         }
 
         public User FindById(long id)
         {
-            throw new NotImplementedException();
+            return _context.Users.Find(id);
         }
 
-        public Task<User> FindByIdAsync(long id)
+        public async Task<User> FindByIdAsync(long id)
         {
-            throw new NotImplementedException();
+            return await _context.Users.FindAsync(id);
         }
 
-        public Task<IEnumerable<User>> ListAsync()
+        public async Task<IEnumerable<User>> ListAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Users.ToListAsync();
         }
 
         public void Remove(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Remove(user);
         }
 
         public void Update(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Update(user);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using web_services_ielectric.Domain.Models;
 using web_services_ielectric.Extensions;
+using web_services_ielectric.Security.Domain.Entities;
 
 namespace web_services_ielectric.Persistence.Contexts
 {
@@ -21,6 +22,7 @@ namespace web_services_ielectric.Persistence.Contexts
         public DbSet<Report> Reports { get; set; }
         public DbSet<SpareRequest> SpareRequests { get; set; }
         public DbSet<Plan> Plans { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

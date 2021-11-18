@@ -12,5 +12,9 @@ namespace web_services_ielectric.Security.Domain.Services
         Task<AuthenticateResponse> Authenticate(AuthenticateRequest request);
         Task<IEnumerable<User>> ListAsync();
         Task<User> GetByIdAsync(long id);
+        User GetById(long id);
+        Task RegisterAsync(RegisterRequest request);
+        Task UpdateAsync(long id, UpdateRequest request);
+        Task DeleteAsync(long id);
     }
 }
