@@ -132,5 +132,25 @@ namespace web_services_ielectric.Controllers
 
             return Ok(clientResource);
         } 
+
+        [SwaggerOperation(
+            Summary = "Update Plan Client",
+            Description = "Update Plan Client",
+            OperationId = "UpdatePlanClient")]
+
+        [HttpPut("{clientId}/plans/{planId}")]
+        [ProducesResponseType(typeof(ClientResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        public async Task<IActionResult> UpdateUserPlan(long clientId, long planId)
+        {
+            var result = await _clientService.UpdateUserPlanAsync(clientId, planId);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var ClientResource = _mapper.Map<Client, ClientResource>(result.Resource);
+
+            return Ok(ClientResource);
+        }
     }
 }

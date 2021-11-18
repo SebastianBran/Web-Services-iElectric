@@ -21,6 +21,9 @@ namespace web_services_ielectric.Persistence.Contexts
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<SpareRequest> SpareRequests { get; set; }
+        
+        public DbSet<ApplianceModel> ApplianceModels { get; set; }
+        public DbSet<ApplianceBrand> ApplianceBrands { get; set; }
         public DbSet<Plan> Plans { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -55,6 +58,7 @@ namespace web_services_ielectric.Persistence.Contexts
             // START CLIENT //
             // Constraints
             builder.Entity<Client>().ToTable("Clients");
+            builder.Entity<Client>().Property(p => p.PlanId);
 
             //Relationships
             builder.Entity<Client>().HasMany(p => p.Appointments)
@@ -62,7 +66,7 @@ namespace web_services_ielectric.Persistence.Contexts
                 .HasForeignKey(p => p.ClientId);
 
             //Example data
-            builder.Entity<Client>().HasData(
+            /*builder.Entity<Client>().HasData(
                 new Client
                 {
                     Id = 1, 
@@ -73,7 +77,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     Email = "f.felicianos@gmail.com",
                     Password = "Feliciano123"
                 }
-            );
+            );*/
             // END CLIENT //
 
             // START TECHNICIAN //
@@ -145,7 +149,7 @@ namespace web_services_ielectric.Persistence.Contexts
                 .HasForeignKey(p => p.AppointmentId);
 
             //Example
-            builder.Entity<Appointment>().HasData(
+            /*builder.Entity<Appointment>().HasData(
                 new Appointment { 
                     Id = 1, 
                     DateReserve = "10-12-2021",
@@ -155,7 +159,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     TechnicianId = 2,
                     Done = false
                 }
-            );
+            );*/
             // END APPOINTMENT //
 
 
@@ -173,7 +177,7 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Report>().Property(p => p.TechnicianId).IsRequired();
             
             //Example
-            builder.Entity<Report>().HasData(
+            /*builder.Entity<Report>().HasData(
                 new Report()
                 {
                     Id = 1,
@@ -185,7 +189,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     TechnicianId = 2,
                     AppointmentId = 1
                 }
-            );
+            );*/
             // END REPORT //
             
             // START SPARE REQUEST
@@ -199,7 +203,7 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<SpareRequest>().Property(p => p.AppointmentId).IsRequired();
             builder.Entity<SpareRequest>().Property(p => p.TechnicianId).IsRequired();
 
-            builder.Entity<SpareRequest>().HasData(
+            /*builder.Entity<SpareRequest>().HasData(
                 new SpareRequest()
                 {
                     Id = 1,
@@ -209,7 +213,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     AppointmentId = 1,
                     TechnicianId = 2
                 }
-            );
+            );*/
             // END SPARE REQUEST
             
             //Constraints
@@ -217,6 +221,33 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Plan>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Plan>().Property(p => p.Name).IsRequired().HasMaxLength(30);
             builder.Entity<Plan>().Property(p => p.Price).IsRequired();
+            // START APPLIANCE //
+            
+            //Constraints
+            builder.Entity<ApplianceModel>().ToTable("ApplianceModels");
+            builder.Entity<ApplianceModel>().HasKey(a => a.Id);
+            builder.Entity<ApplianceModel>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<ApplianceModel>().Property(a => a.Name).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.Model).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.ImgPath).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.PurchaseDate).IsRequired();
+            builder.Entity<ApplianceModel>().Property(a => a.ApplianceBrandId).IsRequired();
+
+            /*builder.Entity<ApplianceModel>().HasData(
+                new ApplianceModel {Id=1,Name = "",Model = "",ImgPath = "",PurchaseDate = "",ApplianceBrandId = 1 }
+            );*/
+            
+            // END APPLIANCE //
+            // START BRAND //
+            builder.Entity<ApplianceBrand>().ToTable("ApplianceBrands");
+            builder.Entity<ApplianceBrand>().HasKey(a => a.Id);
+            builder.Entity<ApplianceBrand>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<ApplianceBrand>().Property(a => a.Name).IsRequired();
+            builder.Entity<ApplianceBrand>().Property(a => a.ImgPath).IsRequired();
+            // END BRAND//
+            builder.Entity<ApplianceBrand>().HasMany(a => a.ApplianceModels)
+                .WithOne(a => a.ApplianceBrand)
+                .HasForeignKey(a => a.ApplianceBrandId);
 
             // Apply Snake Case Naming Convention to All Objects
             builder.UseSnakeCaseNamingConvention();

@@ -47,12 +47,14 @@ namespace web_services_ielectric
             //Database
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySql(Configuration.GetConnectionString("AzureDbConnection"), new MySqlServerVersion(new Version(8, 0, 26)));
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 26)));
             });
 
             //Repositories
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
+            services.AddScoped<IApplianceModelRepository, ApplianceModelRepository>();
+            services.AddScoped<IApplianceBrandRepository, ApplianceBrandRepository>();
             services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
@@ -66,6 +68,8 @@ namespace web_services_ielectric
             //Services
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ITechnicianService, TechnicianService>();
+            services.AddScoped<IApplianceModelService, ApplianceModelService>();
+            services.AddScoped<IApplianceBrandService, ApplianceBrandService>();
             services.AddScoped<IAnnouncementService, AnnouncementService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IReportService, ReportService>();

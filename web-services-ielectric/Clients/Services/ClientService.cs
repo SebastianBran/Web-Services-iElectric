@@ -15,7 +15,7 @@ namespace web_services_ielectric.Services
         private readonly IPlanRepository _planRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ClientService(IClientRepository clientRepository,IPlanRepository planRepository, IUnitOfWork unitOfWork)
+        public ClientService(IClientRepository clientRepository, IPlanRepository planRepository, IUnitOfWork unitOfWork)
         {
             _clientRepository = clientRepository;
             _planRepository = planRepository;
@@ -71,6 +71,7 @@ namespace web_services_ielectric.Services
                 return new ClientResponse($"An error occurred while saving the client: {e.Message}");
             }
         }
+
         public async Task<ClientResponse> UpdateAsync(long id, Client client)
         {
             var existingClient = await _clientRepository.FindByIdAsync(id);
@@ -95,6 +96,33 @@ namespace web_services_ielectric.Services
             catch (Exception e)
             {
                 return new ClientResponse($"An error occurred while updating the client: {e.Message}");
+            }
+        }
+
+        public async Task<ClientResponse> UpdateUserPlanAsync(long clientId, long planId)
+        {
+            var existingPlan = await _planRepository.FindById(planId);
+
+            if (existingPlan == null && planId != 0)
+                return new ClientResponse("Plan not found");
+
+            var existingClient = await _clientRepository.FindByIdAsync(clientId);
+
+            if (existingClient == null)
+                return new ClientResponse("Client not found");
+
+            existingClient.PlanId = planId;
+
+            try
+            {
+                _clientRepository.Update(existingClient);
+                await _unitOfWork.CompleteAsync();
+
+                return new ClientResponse(existingClient);
+            }
+            catch (Exception ex)
+            {
+                return new ClientResponse($"An error ocurred while assigning User to Plan {ex.Message}");
             }
         }
     }
