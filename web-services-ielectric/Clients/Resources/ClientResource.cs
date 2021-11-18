@@ -8,5 +8,6 @@ namespace web_services_ielectric.Resources
 {
     public class ClientResource : PersonResource
     {
+        public long PlanId { get; set; }
     }
 }
