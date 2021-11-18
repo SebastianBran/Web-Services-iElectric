@@ -1,10 +1,11 @@
-namespace web_services_ielectric.Security.Domain.Services.Communication
+namespace web_services_ielectric.Security.Resources
 {
-    public class UpdateRequest
+    public class UserResource
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
+
     }
 }

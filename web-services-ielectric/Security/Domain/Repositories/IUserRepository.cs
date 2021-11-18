@@ -1,6 +1,4 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using web_services_ielectric.Security.Domain.Entities;
 
@@ -10,10 +8,10 @@ namespace web_services_ielectric.Security.Domain.Repositories
     {
         Task<IEnumerable<User>> ListAsync();
         Task AddAsync(User user);
-        Task<User> FindByIdAsync(long id);
-        Task<User> FindByEmailAsync(string email);
-        public bool ExistsByEmail(string email);
-        User FindById(long id);
+        Task<User> FindByIdAsync(int id);
+        Task<User> FindByUsernameAsync(string username);
+        public bool ExistsByUsername(string username);
+        User FindById(int id);
         void Update(User user);
         void Remove(User user);
     }

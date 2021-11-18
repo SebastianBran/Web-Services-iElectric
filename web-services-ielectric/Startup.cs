@@ -20,8 +20,10 @@ using web_services_ielectric.Shared.Settings;
 using web_services_ielectric.Security.Domain.Services;
 using web_services_ielectric.Security.Services;
 using web_services_ielectric.Security.Authorization.Handlers.Interfaces;
-using web_services_ielectric.Security.Authorization.Handlers.Implementation;
 using web_services_ielectric.Security.Authorization.Middleware;
+using web_services_ielectric.Security.Authorization.Handlers.Implementations;
+using web_services_ielectric.Security.Domain.Repositories;
+using web_services_ielectric.Security.Persistence.Repositories;
 
 namespace web_services_ielectric
 {
@@ -56,6 +58,7 @@ namespace web_services_ielectric
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<ISpareRequestRepository, SpareRequestRepository>();
             services.AddScoped<IPlanRepository, PlanRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();

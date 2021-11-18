@@ -1,42 +1,56 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using web_services_ielectric.Security.Domain.Entities;
 using web_services_ielectric.Security.Domain.Services;
 using web_services_ielectric.Security.Domain.Services.Communication;
+using web_services_ielectric.Security.Resources;
 
 namespace web_services_ielectric.Security.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("/api/v1/")]
+    [Route("/api/v1/[controller]")]
     public class UsersController : ControllerBase
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate(AuthenticateRequest request)
+        [AllowAnonymous]
+        [HttpPost("auth/sign-in")]
+        public async Task<IActionResult> Authenticate(AuthenticateRequest request)
         {
-            var response = _userService.Authenticate(request);
+            var response = await _userService.Authenticate(request);
 
             if (response == null)
-                return BadRequest(new { message = "Email or password is incorrect" });
+                return BadRequest(new { message = "Username or password is incorrect" });
 
             return Ok(response);
         }
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult GetAll()
+        [AllowAnonymous]
+        [HttpPost("auth/sign-up")]
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var users = _userService.ListAsync();
-            return Ok(users);
+            await _userService.RegisterAsync(request);
+            return Ok(new { message = "Registration successful" });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var users = await _userService.ListAsync();
+            var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
+            return Ok(resources);
+        }
+
     }
 }

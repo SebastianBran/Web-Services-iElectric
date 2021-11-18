@@ -1,22 +1,21 @@
-﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using web_services_ielectric.Shared.Exceptions;
 using web_services_ielectric.Domain.Repositories;
-using web_services_ielectric.Security.Authorization.Handlers.Implementation;
 using web_services_ielectric.Security.Authorization.Handlers.Interfaces;
 using web_services_ielectric.Security.Domain.Entities;
 using web_services_ielectric.Security.Domain.Repositories;
 using web_services_ielectric.Security.Domain.Services;
 using web_services_ielectric.Security.Domain.Services.Communication;
-using web_services_ielectric.Shared.Exceptions;
 using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace web_services_ielectric.Security.Services
 {
     public class UserService : IUserService
     {
+
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IJwtHandler _jwtHandler;
@@ -32,16 +31,22 @@ namespace web_services_ielectric.Security.Services
 
         public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest request)
         {
-            var user = await _userRepository.FindByEmailAsync(request.Email);
 
-            if (user == null || !BCryptNet.Verify(request.Password, user.HashPassword))
-                throw new AppException("Email or password is incorrect.");
+            var user = await _userRepository.FindByUsernameAsync(request.Username);
 
-            var response = _mapper.Map<AuthenticateResponse>(user);
+            // Validate
+
+            if (user == null || !BCryptNet.Verify(request.Password, user.PasswordHash))
+                throw new AppException("Username or password is incorrect.");
+
+            // Authentication is successful
+
+            var response = _mapper.Map<User, AuthenticateResponse>(user);
 
             response.Token = _jwtHandler.GenerateToken(user);
 
             return response;
+
         }
 
         public async Task<IEnumerable<User>> ListAsync()
@@ -49,55 +54,51 @@ namespace web_services_ielectric.Security.Services
             return await _userRepository.ListAsync();
         }
 
-
-        public async Task<User> GetByIdAsync(long id)
+        public async Task<User> GetByIdAsync(int id)
         {
             var user = await _userRepository.FindByIdAsync(id);
-
-            if (user == null)
-                throw new KeyNotFoundException("User not found");
-
+            if (user == null) throw new KeyNotFoundException("User not found.");
             return user;
         }
 
         public async Task RegisterAsync(RegisterRequest request)
         {
-            //validate
-            if (_userRepository.ExistsByEmail(request.Email))
-                throw new AppException($"Email {request.Email} is already taken");
+            // Validate
+            if (_userRepository.ExistsByUsername(request.Username))
+                throw new AppException($"Username {request.Username} is already taken.");
 
-            //Map request to User model
-            var user = _mapper.Map<User>(request);
+            // Map request to User model
+            var user = _mapper.Map<RegisterRequest, User>(request);
 
-            //Hash Password
-            user.HashPassword = BCryptNet.HashPassword(request.Password);
+            // Hash Password
+            user.PasswordHash = BCryptNet.HashPassword(request.Password);
 
+            // Save User
             try
             {
                 await _userRepository.AddAsync(user);
                 await _unitOfWork.CompleteAsync();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                throw new AppException($"An error occurred while saving user: {e.Message}");
+                throw new AppException($"An error occurred while saving the user: {e.Message}");
             }
         }
 
-        public async Task UpdateAsync(long id, UpdateRequest request)
+        public async Task UpdateAsync(int id, UpdateRequest request)
         {
             var user = GetById(id);
 
-            //Validate
-            if (_userRepository.ExistsByEmail(request.Email))
-                throw new AppException($"Email {request.Email} is already taken.");
+            // Validate
+            if (_userRepository.ExistsByUsername(request.Username))
+                throw new AppException($"Username {request.Username} is already taken.");
 
-            //If password is not null, then hash it
+            // If Password is not null, then Hash it
             if (!string.IsNullOrEmpty(request.Password))
-                user.HashPassword = BCryptNet.HashPassword(request.Password);
+                user.PasswordHash = BCryptNet.HashPassword(request.Password);
 
-            //Map to User model
+            // Map to User model
             _mapper.Map(request, user);
-
             try
             {
                 _userRepository.Update(user);
@@ -105,11 +106,11 @@ namespace web_services_ielectric.Security.Services
             }
             catch (Exception e)
             {
-                throw new AppException($"An error occurred while updatding user: {e.Message}");
+                throw new AppException($"An error occurred while updating the user: {e.Message}");
             }
         }
 
-        public async Task DeleteAsync(long id)
+        public async Task DeleteAsync(int id)
         {
             var user = GetById(id);
 
@@ -120,19 +121,18 @@ namespace web_services_ielectric.Security.Services
             }
             catch (Exception e)
             {
-                throw new AppException($"An error occurred while deleting user: {e.Message}");
+                throw new AppException($"An error occurred while deleting the user: {e.Message}");
             }
         }
-       
-        public User GetById(long id)
+
+        // Internal Helpers
+        private User GetById(int id)
         {
             var user = _userRepository.FindById(id);
-
-            if (user == null)
-                throw new KeyNotFoundException("User not found.");
-
+            if (user == null) throw new KeyNotFoundException("User not found.");
             return user;
         }
+
 
     }
 }

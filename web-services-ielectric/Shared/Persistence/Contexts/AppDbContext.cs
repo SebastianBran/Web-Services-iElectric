@@ -28,6 +28,16 @@ namespace web_services_ielectric.Persistence.Contexts
         {
             base.OnModelCreating(builder);
 
+            // START USER //
+
+            builder.Entity<User>().ToTable("Users");
+            builder.Entity<User>().HasKey(p => p.Id);
+            builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<User>().Property(p => p.Username).IsRequired();
+            builder.Entity<User>().Property(p => p.FirstName).IsRequired();
+            builder.Entity<User>().Property(p => p.LastName).IsRequired();
+
+            // FINISH USER //
 
             // START PERSON //
             // Constraints

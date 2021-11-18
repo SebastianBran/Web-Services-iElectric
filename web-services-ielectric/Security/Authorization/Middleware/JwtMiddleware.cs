@@ -1,41 +1,37 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using web_services_ielectric.Security.Authorization.Handlers.Interfaces;
 using web_services_ielectric.Security.Domain.Services;
-using web_services_ielectric.Shared.Settings;
 
 namespace web_services_ielectric.Security.Authorization.Middleware
 {
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IJwtHandler _jwtUtility;
 
-        public JwtMiddleware(RequestDelegate next, IJwtHandler jwtUtility)
+
+        public JwtMiddleware(RequestDelegate next)
         {
             _next = next;
-            _jwtUtility = jwtUtility;
         }
 
-        public async Task Invoke(HttpContext context, IUserService userService)
+        public async Task Invoke(HttpContext context, IUserService userService, IJwtHandler handler)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-
-            if (token != null)
-                attachUserToContext(context, userService, token);
-
-            await _next(context);
-        }
-
-        private void attachUserToContext(HttpContext context, IUserService userService, string token)
-        {
-            var userId = _jwtUtility.ValidateToken(token);
+            var token = context.Request.Headers["Authorization"]
+                .FirstOrDefault()?.Split(" ").Last();
+            var userId = handler.ValidateToken(token);
 
             if (userId != null)
-                context.Items["User"] = userService.GetByIdAsync(userId.Value);
+            {
+                // Attach user to context
+                context.Items["User"] = await userService.GetByIdAsync(userId.Value);
+            }
+
+            await _next(context);
+
         }
+
+
     }
 }
