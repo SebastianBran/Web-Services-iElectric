@@ -272,7 +272,7 @@ namespace web_services_ielectric.Persistence.Contexts
 
             // START APPLIANCE //
 
-            builder.Entity<Appliance>().ToTable("Appliance");
+            builder.Entity<Appliance>().ToTable("Appliances");
             builder.Entity<Appliance>().HasKey(p => p.Id);
             builder.Entity<Appliance>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Appliance>().Property(p => p.ClientId).IsRequired();
