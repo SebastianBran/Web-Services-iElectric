@@ -30,4 +30,11 @@
     <ProjectReference Include="..\web-services-ielectric\web-services-ielectric.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Administrator\AdministratorServiceTests.feature.cs" />
+    <Compile Update="Administrator\AdministratorServiceTests.feature.cs">
+      <DependentUpon>AdministratorServiceTests.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

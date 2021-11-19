@@ -114,14 +114,14 @@ this.ScenarioInitialize(scenarioInfo);
 #line 8
  testRunner.Given("The Endpoint https://localhost:44346/api/v1/technicians is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "Names",
                             "LastNames",
                             "CellphoneNumber",
                             "Address",
                             "Email",
                             "Password"});
-                table3.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "Pedro",
                             "Jimenez",
                             "978675641",
@@ -129,7 +129,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "pedro@gmail.com",
                             "Pedro12345"});
 #line 9
- testRunner.When("A Technician Request is sent", ((string)(null)), table3, "When ");
+ testRunner.When("A Technician Request is sent", ((string)(null)), table4, "When ");
 #line hidden
 #line 12
  testRunner.Then("A Response with Status 200 is received for the technician", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

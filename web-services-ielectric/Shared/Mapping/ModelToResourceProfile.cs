@@ -16,6 +16,7 @@ namespace web_services_ielectric.Mapping
         public ModelToResourceProfile()
         {
             CreateMap<Person, PersonResource>();
+            CreateMap<Administrator, AdministratorResource>();
             CreateMap<Client, ClientResource>();
             CreateMap<Technician, TechnicianResource>();
             CreateMap<ApplianceModel, ApplianceModelResource>();
