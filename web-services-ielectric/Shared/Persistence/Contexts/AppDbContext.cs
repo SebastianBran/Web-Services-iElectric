@@ -56,7 +56,7 @@ namespace web_services_ielectric.Persistence.Contexts
             // Constraints
             builder.Entity<Administrator>().ToTable("administrators");
             //Example data
-            builder.Entity<Administrator>().HasData(
+            /*builder.Entity<Administrator>().HasData(
                 new Administrator
                 {
                     Id = 3, 
@@ -67,7 +67,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     Email = "carlos.leon@gmail.com",
                     Password = "carlos123"
                 }
-            );
+            );*/
             // END ADMINISTRATOR //
             
             // START CLIENT //

@@ -81,8 +81,7 @@ namespace web_services_ielectric.Services
             existingAdministrator.LastNames = administrator.LastNames;
             existingAdministrator.CellphoneNumber = administrator.CellphoneNumber;
             existingAdministrator.Address = administrator.Address;
-            existingAdministrator.Email = administrator.Email;
-            existingAdministrator.Password = administrator.Password;
+            existingAdministrator.UserId = administrator.UserId;
 
             try
             {
