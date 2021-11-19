@@ -70,7 +70,6 @@ namespace web_services_ielectric.Services
             existingApplianceModel.Name = applianceModel.Name;
             existingApplianceModel.Model = applianceModel.Model;
             existingApplianceModel.ImgPath = applianceModel.ImgPath;
-            existingApplianceModel.PurchaseDate = applianceModel.PurchaseDate;
             existingApplianceModel.ApplianceBrandId = applianceModel.ApplianceBrandId;
             try
             {

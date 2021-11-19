@@ -26,6 +26,7 @@ namespace web_services_ielectric.Persistence.Repositories
         {
             return await _context.ApplianceModels.FindAsync(id);
         }
+
         public async Task<IEnumerable<ApplianceModel>> FindByApplianceBrandId(long applianceBrandId)
         {
             return await _context.ApplianceModels

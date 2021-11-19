@@ -62,6 +62,7 @@ namespace web_services_ielectric
             services.AddScoped<ISpareRequestRepository, SpareRequestRepository>();
             services.AddScoped<IPlanRepository, PlanRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IApplianceRepository, ApplianceRepository>();
 
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -78,6 +79,7 @@ namespace web_services_ielectric
             services.AddScoped<ISpareRequestService, SpareRequestService>();
             services.AddScoped<IPlanService, PlanService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IApplianceService, ApplianceService>();
 
             //Utilities
             services.AddScoped<IJwtHandler, JwtHandler>();

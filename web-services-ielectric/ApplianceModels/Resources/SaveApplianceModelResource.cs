@@ -11,8 +11,6 @@ namespace web_services_ielectric.Resources
         [Required]
         public string ImgPath { get; set; }
         [Required]
-        public string PurchaseDate { get; set; }
-        [Required]
         public long ApplianceBrandId { get; set; }
     }
 }

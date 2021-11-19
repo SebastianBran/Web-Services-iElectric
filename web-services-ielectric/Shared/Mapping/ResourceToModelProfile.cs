@@ -20,6 +20,7 @@ namespace web_services_ielectric.Mapping
             CreateMap<SaveTechnicianResource, Technician>();
             CreateMap<SaveApplianceModelResource, ApplianceModel>();
             CreateMap<SaveApplianceBrandResource, ApplianceBrand>();
+            CreateMap<SaveApplianceResource, Appliance>();
             CreateMap<SaveAnnouncementResource, Announcement>()
                 .ForMember(target => target.TypeOfAnnouncement,
                             opt => opt.MapFrom(source => (ETypeOfAnnouncement)source.TypeOfAnnouncement));

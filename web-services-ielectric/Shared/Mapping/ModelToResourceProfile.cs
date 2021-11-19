@@ -21,6 +21,7 @@ namespace web_services_ielectric.Mapping
             CreateMap<Technician, TechnicianResource>();
             CreateMap<ApplianceModel, ApplianceModelResource>();
             CreateMap<ApplianceBrand, ApplianceBrandResource>();
+            CreateMap<Appliance, ApplianceResource>();
             CreateMap<Announcement, AnnouncementResource>()
                 .ForMember(target => target.TypeOfAnnouncement,
                             opt => opt.MapFrom(source => source.TypeOfAnnouncement.ToDescriptionString()));
