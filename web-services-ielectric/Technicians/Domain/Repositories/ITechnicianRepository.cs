@@ -11,6 +11,7 @@ namespace web_services_ielectric.Domain.Repositories
         Task<IEnumerable<Technician>> ListAsync();
         Task AddAsync(Technician technician);
         Task<Technician> FindByIdAsync(long id);
+        Task<IEnumerable<Report>> FindByTechnicianId(int reportId);
         void Update(Technician technician);
         void Remove(Technician technician);
     }

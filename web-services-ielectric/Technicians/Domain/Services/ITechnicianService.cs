@@ -14,5 +14,6 @@ namespace web_services_ielectric.Domain.Services
         Task<TechnicianResponse> SaveAsync(Technician technician);
         Task<TechnicianResponse> UpdateAsync(long id, Technician technician);
         Task<TechnicianResponse> DeleteAsync(long id);
+        Task<IEnumerable<Report>> ListByTechnicianIdAsync(int technicianId);
     }
 }

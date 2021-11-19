@@ -27,6 +27,14 @@ namespace web_services_ielectric.Persistence.Repositories
         {
             return await _context.Technicians.ToListAsync();
         }
+        
+        public async Task<IEnumerable<Report>> FindByTechnicianId(int technicianId)
+        {
+            return await _context.Reports
+                .Where(p => p.TechnicianId == technicianId)
+                .Include(p => p.Technician)
+                .ToListAsync();
+        }
 
         public void Remove(Technician technician)
         {

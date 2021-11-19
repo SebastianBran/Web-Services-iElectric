@@ -12,11 +12,13 @@ namespace web_services_ielectric.Services
     public class TechnicianService : ITechnicianService
     {
         private readonly ITechnicianRepository _technicianRepository;
+        private readonly IReportRepository _reportRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public TechnicianService(ITechnicianRepository technicianRepository, IUnitOfWork unitOfWork)
+        public TechnicianService(ITechnicianRepository technicianRepository, IUnitOfWork unitOfWork, IReportRepository reportRepository)
         {
             _technicianRepository = technicianRepository;
+            _reportRepository = reportRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -94,6 +96,11 @@ namespace web_services_ielectric.Services
             {
                 return new TechnicianResponse($"An error occurred while updating the technician: {e.Message}");
             }
+        }
+        
+        public async Task<IEnumerable<Report>> ListByTechnicianIdAsync(int technicianId)
+        {
+            return await _technicianRepository.FindByTechnicianId(technicianId);
         }
     }
 }
