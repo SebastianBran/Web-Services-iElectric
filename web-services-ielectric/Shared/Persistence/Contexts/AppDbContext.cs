@@ -89,9 +89,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     Names = "Jose",
                     LastNames = "Feliciano",
                     Address = "North Avenue",
-                    CellphoneNumber = 987879219,
-                    Email = "f.felicianos@gmail.com",
-                    Password = "Feliciano123"
+                    CellphoneNumber = 987879219
                 }
             );*/
             // END CLIENT //
@@ -122,8 +120,8 @@ namespace web_services_ielectric.Persistence.Contexts
                     LastNames = "Bran Zapata",
                     Address = "Los Angeles",
                     CellphoneNumber = 987899219,
-                    Email = "sebas@gmail.com",
-                    Password = "Sebas123"
+                    //Email = "sebas@gmail.com",
+                    //Password = "Sebas123"
                 }
             );*/
             // END TECHNICIAN //

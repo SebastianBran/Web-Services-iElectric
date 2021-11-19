@@ -27,11 +27,10 @@ namespace web_services_ielectric.Controllers
         }
 
         [SwaggerOperation(
-        Summary = "Get all Technicians",
-        Description = "Get of all Technicians",
-        OperationId = "GetAllTechnicians")]
+            Summary = "Get all Technicians",
+            Description = "Get of all Technicians",
+            OperationId = "GetAllTechnicians")]
         [SwaggerResponse(200, "All Technicians returned", typeof(IEnumerable<TechnicianResource>))]
-
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<TechnicianResource>), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
@@ -43,11 +42,10 @@ namespace web_services_ielectric.Controllers
         }
 
         [SwaggerOperation(
-        Summary = "Get Technicians by Id",
-        Description = "Get Technicians by Id",
-        OperationId = "GetTechniciansById")]
+            Summary = "Get Technicians by Id",
+            Description = "Get Technicians by Id",
+            OperationId = "GetTechniciansById")]
         [SwaggerResponse(200, "Technicians returned", typeof(TechnicianResource))]
-
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(TechnicianResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
@@ -64,11 +62,10 @@ namespace web_services_ielectric.Controllers
         }
 
         [SwaggerOperation(
-        Summary = "Save Technician",
-        Description = "Save Technician",
-        OperationId = "SaveTechnician")]
+            Summary = "Save Technician",
+            Description = "Save Technician",
+            OperationId = "SaveTechnician")]
         [SwaggerResponse(200, "Technician saved", typeof(TechnicianResource))]
-
         [HttpPost]
         [ProducesResponseType(typeof(TechnicianResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
@@ -89,11 +86,10 @@ namespace web_services_ielectric.Controllers
         }
 
         [SwaggerOperation(
-        Summary = "Update Technician",
-        Description = "Update Technician",
-        OperationId = "UpdateTechnician")]
+            Summary = "Update Technician",
+            Description = "Update Technician",
+            OperationId = "UpdateTechnician")]
         [SwaggerResponse(200, "Technician updated", typeof(TechnicianResource))]
-
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(TechnicianResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
@@ -114,11 +110,10 @@ namespace web_services_ielectric.Controllers
         }
 
         [SwaggerOperation(
-        Summary = "Delete Technician",
-        Description = "Delete Technician",
-        OperationId = "DeleteTechnician")]
+            Summary = "Delete Technician",
+            Description = "Delete Technician",
+            OperationId = "DeleteTechnician")]
         [SwaggerResponse(200, "Technician deleted", typeof(TechnicianResource))]
-
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(TechnicianResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
@@ -132,6 +127,22 @@ namespace web_services_ielectric.Controllers
             var technicianResource = _mapper.Map<Technician, TechnicianResource>(result.Resource);
 
             return Ok(technicianResource);
+        }
+
+        [SwaggerOperation(
+            Summary = "Get Reports Technician",
+            Description = "Get Reports Technician",
+            OperationId = "GetReportsTechnician",
+            Tags = new[] {"Reports"})
+        ]
+        [HttpGet("{technicianId}/reports/")]
+        [ProducesResponseType(typeof(ClientResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        public async Task<IEnumerable<ReportResource>> GetAllByTechnicianIdAsync(int technicianId)
+        {
+            var reports = await _technicianService.ListByTechnicianIdAsync(technicianId);
+            var resources = _mapper.Map<IEnumerable<Report>, IEnumerable<ReportResource>>(reports);
+            return resources;
         }
     }
 }
