@@ -30,4 +30,10 @@
     <ProjectReference Include="..\web-services-ielectric\web-services-ielectric.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Plan\PlanServiceTests.feature.cs">
+      <DependentUpon>PlanServiceTests.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
