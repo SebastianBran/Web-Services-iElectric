@@ -36,9 +36,7 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<User>().ToTable("Users");
             builder.Entity<User>().HasKey(p => p.Id);
             builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<User>().Property(p => p.Username).IsRequired();
-            builder.Entity<User>().Property(p => p.FirstName).IsRequired();
-            builder.Entity<User>().Property(p => p.LastName).IsRequired();
+            builder.Entity<User>().Property(p => p.Email).IsRequired();
 
             // FINISH USER //
 
@@ -51,8 +49,7 @@ namespace web_services_ielectric.Persistence.Contexts
             builder.Entity<Person>().Property(p => p.LastNames).IsRequired().HasMaxLength(30);
             builder.Entity<Person>().Property(p => p.CellphoneNumber).IsRequired();
             builder.Entity<Person>().Property(p => p.Address).IsRequired().HasMaxLength(50);
-            builder.Entity<Person>().Property(p => p.Email).IsRequired();
-            builder.Entity<Person>().Property(p => p.Password).IsRequired();
+            builder.Entity<Person>().Property(p => p.UserId).IsRequired();
             // END PERSON //
 
             // START CLIENT //
@@ -98,7 +95,7 @@ namespace web_services_ielectric.Persistence.Contexts
                 .HasForeignKey(p => p.TechnicianId);
 
             //Example
-            builder.Entity<Technician>().HasData(
+            /*builder.Entity<Technician>().HasData(
                 new Technician
                 {
                     Id = 2, 
@@ -109,7 +106,7 @@ namespace web_services_ielectric.Persistence.Contexts
                     Email = "sebas@gmail.com",
                     Password = "Sebas123"
                 }
-            );
+            );*/
             // END TECHNICIAN //
 
             // START ANNOUNCEMENT //

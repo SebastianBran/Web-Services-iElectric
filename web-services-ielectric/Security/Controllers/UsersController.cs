@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using web_services_ielectric.Security.Authorization.Attributes;
 using web_services_ielectric.Security.Domain.Entities;
 using web_services_ielectric.Security.Domain.Services;
 using web_services_ielectric.Security.Domain.Services.Communication;
@@ -40,8 +40,12 @@ namespace web_services_ielectric.Security.Controllers
         [HttpPost("auth/sign-up")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
-            await _userService.RegisterAsync(request);
-            return Ok(new { message = "Registration successful" });
+            var response = await _userService.RegisterAsync(request);
+
+            if (response == null)
+                return BadRequest(new { message = "User don't register" });
+
+            return Ok(response);
         }
 
         [HttpGet]

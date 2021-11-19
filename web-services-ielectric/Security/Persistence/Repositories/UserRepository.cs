@@ -30,14 +30,14 @@ namespace web_services_ielectric.Security.Persistence.Repositories
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<User> FindByUsernameAsync(string username)
+        public async Task<User> FindByEmailAsync(string email)
         {
-            return await _context.Users.SingleOrDefaultAsync(u => u.Username == username);
+            return await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
         }
 
-        public bool ExistsByUsername(string username)
+        public bool ExistsByEmail(string email)
         {
-            return _context.Users.Any(u => u.Username == username);
+            return _context.Users.Any(u => u.Email == email);
         }
 
         public User FindById(int id)

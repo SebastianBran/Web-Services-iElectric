@@ -83,8 +83,7 @@ namespace web_services_ielectric.Services
             existingClient.LastNames = client.LastNames;
             existingClient.CellphoneNumber = client.CellphoneNumber;
             existingClient.Address = client.Address;
-            existingClient.Email = client.Email;
-            existingClient.Password = client.Password;
+            existingClient.UserId = client.UserId;
 
             try
             {

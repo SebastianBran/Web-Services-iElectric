@@ -13,8 +13,7 @@ namespace web_services_ielectric.Domain.Models
         public string LastNames { get; set; }
         public long CellphoneNumber { get; set; }
         public string Address { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public long UserId { get; set; }
 
         //Relationships - Relación de uno a muchos
         public IList<Appointment> Appointments { get; set; } = new List<Appointment>();

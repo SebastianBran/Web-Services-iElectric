@@ -16,7 +16,6 @@ using web_services_ielectric.Domain.Repositories;
 using web_services_ielectric.Persistence.Repositories;
 using web_services_ielectric.Domain.Services;
 using web_services_ielectric.Services;
-using web_services_ielectric.Shared.Settings;
 using web_services_ielectric.Security.Domain.Services;
 using web_services_ielectric.Security.Services;
 using web_services_ielectric.Security.Authorization.Handlers.Interfaces;
@@ -24,6 +23,7 @@ using web_services_ielectric.Security.Authorization.Middleware;
 using web_services_ielectric.Security.Authorization.Handlers.Implementations;
 using web_services_ielectric.Security.Domain.Repositories;
 using web_services_ielectric.Security.Persistence.Repositories;
+using web_services_ielectric.Security.Authorization.Settings;
 
 namespace web_services_ielectric
 {
@@ -87,7 +87,8 @@ namespace web_services_ielectric
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             //AutoMapper Setup
-            services.AddAutoMapper(typeof(Startup));
+            //services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c =>
             {
@@ -114,6 +115,9 @@ namespace web_services_ielectric
                 .AllowCredentials());
 
             app.UseAuthorization();
+
+            // Integrate Error Handling Middleware
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             //Integrate JWT Authorization Middleware
             app.UseMiddleware<JwtMiddleware>();

@@ -32,7 +32,7 @@ namespace web_services_ielectric.Security.Services
         public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest request)
         {
 
-            var user = await _userRepository.FindByUsernameAsync(request.Username);
+            var user = await _userRepository.FindByEmailAsync(request.Email);
 
             // Validate
 
@@ -61,11 +61,11 @@ namespace web_services_ielectric.Security.Services
             return user;
         }
 
-        public async Task RegisterAsync(RegisterRequest request)
+        public async Task<RegisterResponse> RegisterAsync(RegisterRequest request)
         {
             // Validate
-            if (_userRepository.ExistsByUsername(request.Username))
-                throw new AppException($"Username {request.Username} is already taken.");
+            if (_userRepository.ExistsByEmail(request.Email))
+                throw new AppException($"Username {request.Email} is already taken.");
 
             // Map request to User model
             var user = _mapper.Map<RegisterRequest, User>(request);
@@ -78,6 +78,8 @@ namespace web_services_ielectric.Security.Services
             {
                 await _userRepository.AddAsync(user);
                 await _unitOfWork.CompleteAsync();
+
+                return _mapper.Map<User, RegisterResponse>(user);
             }
             catch (Exception e)
             {
@@ -90,8 +92,8 @@ namespace web_services_ielectric.Security.Services
             var user = GetById(id);
 
             // Validate
-            if (_userRepository.ExistsByUsername(request.Username))
-                throw new AppException($"Username {request.Username} is already taken.");
+            if (_userRepository.ExistsByEmail(request.Email))
+                throw new AppException($"Username {request.Email} is already taken.");
 
             // If Password is not null, then Hash it
             if (!string.IsNullOrEmpty(request.Password))

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Supermarket.API.Extensions;
+using web_services_ielectric.Security.Domain.Entities;
+using web_services_ielectric.Security.Domain.Services.Communication;
 
 namespace web_services_ielectric.Mapping
 {
@@ -25,6 +27,9 @@ namespace web_services_ielectric.Mapping
             CreateMap<Report, ReportResource>();
             CreateMap<SpareRequest, SpareRequestResource>();
             CreateMap<Plan, PlanResource>();
+            CreateMap<User, RegisterRequest>();
+            CreateMap<User, AuthenticateResponse>();
+            CreateMap<User, RegisterResponse>();
         }
     }
 }

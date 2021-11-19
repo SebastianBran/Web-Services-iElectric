@@ -81,8 +81,7 @@ namespace web_services_ielectric.Services
             existingTechnician.LastNames = technician.LastNames;
             existingTechnician.CellphoneNumber = technician.CellphoneNumber;
             existingTechnician.Address = technician.Address;
-            existingTechnician.Email = technician.Email;
-            existingTechnician.Password = technician.Password;
+            existingTechnician.UserId = technician.UserId;
 
             try
             {

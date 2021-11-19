@@ -9,8 +9,8 @@ namespace web_services_ielectric.Security.Domain.Repositories
         Task<IEnumerable<User>> ListAsync();
         Task AddAsync(User user);
         Task<User> FindByIdAsync(int id);
-        Task<User> FindByUsernameAsync(string username);
-        public bool ExistsByUsername(string username);
+        Task<User> FindByEmailAsync(string Email);
+        public bool ExistsByEmail(string email);
         User FindById(int id);
         void Update(User user);
         void Remove(User user);

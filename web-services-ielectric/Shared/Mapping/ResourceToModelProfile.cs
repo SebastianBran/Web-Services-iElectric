@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using web_services_ielectric.Domain.Models;
 using web_services_ielectric.Resources;
+using web_services_ielectric.Security.Domain.Entities;
+using web_services_ielectric.Security.Domain.Services.Communication;
 
 namespace web_services_ielectric.Mapping
 {
@@ -24,6 +26,9 @@ namespace web_services_ielectric.Mapping
             CreateMap<SaveReportResource, Report>();
             CreateMap<SaveSpareRequestResource, SpareRequest>();
             CreateMap<SavePlanResource, Plan>();
+            CreateMap<RegisterRequest, User>();
+            CreateMap<AuthenticateRequest, User>();
+            CreateMap<UpdateRequest, User>();
         }
     }
 }
