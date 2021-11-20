@@ -50,6 +50,16 @@ namespace web_services_ielectric.Services
             return new AdministratorResponse(existingAdministrator);
         }
 
+        public async Task<AdministratorResponse> GetByUserIdAsync(long userId)
+        {
+            var existingAdministrator = await _administratorRepository.FindByIdAsync(userId);
+
+            if (existingAdministrator == null)
+                return new AdministratorResponse("Administrator not found.");
+
+            return new AdministratorResponse(existingAdministrator);
+        }
+
         public async Task<IEnumerable<Administrator>> ListAsync()
         {
             return await _administratorRepository.ListAsync();

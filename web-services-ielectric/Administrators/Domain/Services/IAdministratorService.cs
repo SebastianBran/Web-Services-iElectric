@@ -11,6 +11,7 @@ namespace web_services_ielectric.Domain.Services
     {
         Task<IEnumerable<Administrator>> ListAsync();
         Task<AdministratorResponse> GetByIdAsync(long id);
+        Task<AdministratorResponse> GetByUserIdAsync(long userId);
         Task<AdministratorResponse> SaveAsync(Administrator administrator);
         Task<AdministratorResponse> UpdateAsync(long id, Administrator administrator);
         Task<AdministratorResponse> DeleteAsync(long id);

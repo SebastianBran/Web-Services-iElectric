@@ -64,6 +64,27 @@ namespace web_services_ielectric.Controllers
         }
 
         [SwaggerOperation(
+        Summary = "Get Administrators by User Id",
+        Description = "Get Administrators by User Id",
+        OperationId = "GetAdministratorsByUserId")]
+        [SwaggerResponse(200, "Administrators returned", typeof(AdministratorResource))]
+
+        [HttpGet("user/{userId}")]
+        [ProducesResponseType(typeof(AdministratorResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        public async Task<IActionResult> GetByUserIdAsync(long userId)
+        {
+            var result = await _administratorService.GetByUserIdAsync(userId);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var administratorResult = _mapper.Map<Administrator, AdministratorResource>(result.Resource);
+
+            return Ok(administratorResult);
+        }
+
+        [SwaggerOperation(
         Summary = "Save Administrator",
         Description = "Save Administrator",
         OperationId = "SaveAdministrator")]
