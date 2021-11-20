@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace web_services_ielectric.Tests.Technician
+namespace web_services_ielectric.Tests.Report
 {
     using TechTalk.SpecFlow;
     using System;
@@ -19,7 +19,7 @@ namespace web_services_ielectric.Tests.Technician
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class TechnicianServiceTestsFeature : object, Xunit.IClassFixture<TechnicianServiceTestsFeature.FixtureData>, System.IDisposable
+    public partial class ReportServiceTestsFeature : object, Xunit.IClassFixture<ReportServiceTestsFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace web_services_ielectric.Tests.Technician
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "TechnicianServiceTests.feature"
+#line 1 "ReportServiceTests.feature"
 #line hidden
         
-        public TechnicianServiceTestsFeature(TechnicianServiceTestsFeature.FixtureData fixtureData, web_services_ielectric_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public ReportServiceTestsFeature(ReportServiceTestsFeature.FixtureData fixtureData, web_services_ielectric_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,8 +40,8 @@ namespace web_services_ielectric.Tests.Technician
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Technician", "TechnicianServiceTests", "\tAs a Developer\r\n\tI Want ot add new Technician through API\r\n\tSo that it becomes a" +
-                    "vailable for applicantions.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Report", "ReportServiceTests", "\tAs a Developer\r\n\tI want to add new Report throught the API\r\n\tSo that it becomes " +
+                    "available for applications", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -81,16 +81,16 @@ namespace web_services_ielectric.Tests.Technician
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Add Technician")]
-        [Xunit.TraitAttribute("FeatureTitle", "TechnicianServiceTests")]
-        [Xunit.TraitAttribute("Description", "Add Technician")]
-        [Xunit.TraitAttribute("Category", "technician-adding")]
-        public virtual void AddTechnician()
+        [Xunit.SkippableFactAttribute(DisplayName="Add Report")]
+        [Xunit.TraitAttribute("FeatureTitle", "ReportServiceTests")]
+        [Xunit.TraitAttribute("Description", "Add Report")]
+        [Xunit.TraitAttribute("Category", "mytag")]
+        public virtual void AddReport()
         {
             string[] tagsOfScenario = new string[] {
-                    "technician-adding"};
+                    "mytag"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Technician", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Report", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -112,27 +112,29 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 8
- testRunner.Given("The Endpoint https://localhost:44346/api/v1/technicians is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The Endpoint https://localhost:44346/api/v1/reports is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Names",
-                            "LastNames",
-                            "CellphoneNumber",
-                            "Address",
-                            "Email",
-                            "Password"});
-                table5.AddRow(new string[] {
-                            "Pedro",
-                            "Jimenez",
-                            "978675641",
-                            "San Isidro",
-                            "pedro@gmail.com",
-                            "Pedro12345"});
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Observation",
+                            "Diagnosis",
+                            "RepairDescription",
+                            "ImagePath",
+                            "Date",
+                            "TechnicianId",
+                            "AppointmentId"});
+                table4.AddRow(new string[] {
+                            "The microwave smell bad",
+                            "A component is burned",
+                            "I replaced the microchip successfully",
+                            "https://google.com/images",
+                            "10-12-24",
+                            "2",
+                            "1"});
 #line 9
- testRunner.When("A Technician Request is sent", ((string)(null)), table5, "When ");
+ testRunner.When("A Client Request is sent to the API", ((string)(null)), table4, "When ");
 #line hidden
 #line 12
- testRunner.Then("A Response with Status 200 is received for the technician", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("A Response with Status 200 is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -145,12 +147,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                TechnicianServiceTestsFeature.FeatureSetup();
+                ReportServiceTestsFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                TechnicianServiceTestsFeature.FeatureTearDown();
+                ReportServiceTestsFeature.FeatureTearDown();
             }
         }
     }
