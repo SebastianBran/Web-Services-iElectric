@@ -62,6 +62,26 @@ namespace web_services_ielectric.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Get Technician by User Id",
+            Description = "Get Technician by User Id",
+            OperationId = "GetTechnicianByUserId")]
+        [SwaggerResponse(200, "Technician returned", typeof(TechnicianResource))]
+        [HttpGet("user/{userId}")]
+        [ProducesResponseType(typeof(TechnicianResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        public async Task<IActionResult> GetByUserIdAsyn(long userId)
+        {
+            var result = await _technicianService.GetByUserIdAsync(userId);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var technicianResult = _mapper.Map<Technician, TechnicianResource>(result.Resource);
+
+            return Ok(technicianResult);
+        }
+
+        [SwaggerOperation(
             Summary = "Save Technician",
             Description = "Save Technician",
             OperationId = "SaveTechnician")]

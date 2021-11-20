@@ -52,6 +52,16 @@ namespace web_services_ielectric.Services
             return new TechnicianResponse(existingTechnician);
         }
 
+        public async Task<TechnicianResponse> GetByUserIdAsync(long userId)
+        {
+            var existingTechnician = await _technicianRepository.FindByUserIdAsync(userId);
+
+            if (existingTechnician == null)
+                return new TechnicianResponse("Technician not found.");
+
+            return new TechnicianResponse(existingTechnician);
+        }
+
         public async Task<IEnumerable<Technician>> ListAsync()
         {
             return await _technicianRepository.ListAsync();

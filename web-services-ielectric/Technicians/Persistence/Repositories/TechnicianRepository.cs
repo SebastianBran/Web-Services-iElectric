@@ -23,6 +23,13 @@ namespace web_services_ielectric.Persistence.Repositories
             return await _context.Technicians.FindAsync(id);
         }
 
+        public async Task<Technician> FindByUserIdAsync(long userId)
+        {
+            return await _context.Technicians
+                .Where(p => p.UserId == userId)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Technician>> ListAsync()
         {
             return await _context.Technicians.ToListAsync();
