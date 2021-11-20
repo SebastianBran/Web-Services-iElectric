@@ -52,6 +52,16 @@ namespace web_services_ielectric.Services
             return new ClientResponse(existingClient);
         }
 
+        public async Task<ClientResponse> GetByUserIdAsync(long userId)
+        {
+            var existingClient = await _clientRepository.FindByUserIdAsync(userId);
+
+            if (existingClient == null)
+                return new ClientResponse("Client not found.");
+
+            return new ClientResponse(existingClient);
+        } 
+
         public async Task<IEnumerable<Client>> ListAsync()
         {
             return await _clientRepository.ListAsync();

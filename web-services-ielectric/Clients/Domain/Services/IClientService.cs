@@ -11,6 +11,7 @@ namespace web_services_ielectric.Domain.Services
     {
         Task<IEnumerable<Client>> ListAsync();
         Task<ClientResponse> GetByIdAsync(long id);
+        Task<ClientResponse> GetByUserIdAsync(long userId);
         Task<ClientResponse> SaveAsync(Client client);
         Task<ClientResponse> UpdateAsync(long id, Client client);
         Task<ClientResponse> DeleteAsync(long id);

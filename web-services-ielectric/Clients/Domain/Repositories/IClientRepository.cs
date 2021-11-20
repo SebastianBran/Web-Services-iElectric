@@ -11,6 +11,7 @@ namespace web_services_ielectric.Domain.Repositories
         Task<IEnumerable<Client>> ListAsync();
         Task AddAsync(Client client);
         Task<Client> FindByIdAsync(long id);
+        Task<Client> FindByUserIdAsync(long userId);
         void Update(Client client);
         void Remove(Client client);
     }
