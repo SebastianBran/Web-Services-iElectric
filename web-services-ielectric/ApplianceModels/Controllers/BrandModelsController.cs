@@ -15,9 +15,9 @@ namespace web_services_ielectric.Controllers
     public class BrandModelsController:ControllerBase
     {
         private readonly IApplianceModelService _applianceModelService;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
 
-        public BrandModelsController(IApplianceModelService applianceModelService, Mapper mapper)
+        public BrandModelsController(IApplianceModelService applianceModelService, IMapper mapper)
         {
             _applianceModelService = applianceModelService;
             _mapper = mapper;
@@ -27,11 +27,11 @@ namespace web_services_ielectric.Controllers
             Summary = "Get ApplianceModels by ApplianceBrandId",
             Description = "Get ApplianceModels by ApplianceBrandId",
             OperationId = "GetApplianceModelsByApplianceBrandId")]
-        [SwaggerResponse(200, "ApplianceModels returned", typeof(ApplianceModelResource))]
+        [SwaggerResponse(200, "ApplianceModels returned", typeof(IEnumerable<ApplianceModelResource>))]
         [HttpGet]
-        [ProducesResponseType(typeof(ApplianceModelResource), 200)]
+        [ProducesResponseType(typeof(IEnumerable<ApplianceModelResource>), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
-        public async Task<IEnumerable<ApplianceModelResource>> GetAllByApplianceBrandIdAsync(int applianceBrandId)
+        public async Task<IEnumerable<ApplianceModelResource>> GetAllByApplianceBrandIdAsync(long applianceBrandId)
         {
             var applianceModels = await _applianceModelService.ListByApplianceBrandIdAsync(applianceBrandId);
             var resources =
