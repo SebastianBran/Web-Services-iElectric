@@ -37,4 +37,10 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Plan\PlanServiceTests.feature.cs">
+      <DependentUpon>PlanServiceTests.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
